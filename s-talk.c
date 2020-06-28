@@ -130,10 +130,10 @@ int main (int argc, char *argv[]) {
 
 	struct receiverData rd = {receiverList, &socketDescriptor};
 	pthread_t receiverThread;
-	// pthread_create(&receiverThread, NULL, receiver, &rd);
-	// display(receiverList);
+	pthread_create(&receiverThread, NULL, receiver, &rd);
+	display(receiverList);
 
-	receiver(&rd);
+	// receiver(&rd);
 
 
 
