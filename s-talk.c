@@ -12,53 +12,33 @@
 
 
 
-#define MAX_NUM_CHARS 100 // Deifing the maximum size of a message
-pthread_cond_t Buffer_Not_Full=PTHREAD_COND_INITIALIZER; // Creating condition variables
-pthread_cond_t Buffer_Not_Empty=PTHREAD_COND_INITIALIZER;
-pthread_mutex_t mVar=PTHREAD_MUTEX_INITIALIZER;
 
-#define MAX_LEN 1024
+// pthread_cond_t Buffer_Not_Full=PTHREAD_COND_INITIALIZER; // Creating condition variables
+// pthread_cond_t Buffer_Not_Empty=PTHREAD_COND_INITIALIZER;
+// pthread_mutex_t mVar=PTHREAD_MUTEX_INITIALIZER;
+
+pthread_cond_t messagesToDisplay=PTHREAD_COND_INITIALIZER; // Creating condition variables
+pthread_cond_t roomOnReceiverList=PTHREAD_COND_INITIALIZER;
+pthread_mutex_t receiverDisplayMutex=PTHREAD_MUTEX_INITIALIZER;
+
+#define MSG_MAX_LEN 1024 // Defining the max size of a message
 #define PORT 22110
+#define MAX_LIST_SIZE 100
+
+struct receiverData {
+	List *senderList;
+	int *sd;
+};
 
 
-
-
-
-void *keyboardInput(void *senderList) {
-	List *sl = senderList;
-
-	while (1)
-	{
-		pthread_mutex_lock(&mVar); // Locking mutext
-		if (sl->size > 0) {
-			pthread_cond_wait(&Buffer_Not_Full,&mVar); // Do a wait on the condition that we have no more room for a message
-		}
-		
-		printf("Enter a value: "); // Getting message from the user
-		char *ptr = (char*) malloc(MAX_NUM_CHARS * sizeof(char)); // Dynamically allocating an array of char for message
-		scanf("%s", ptr); // Getting user input
-
-		List_append(sl, ptr); // Putting user input on the list
-
-		pthread_mutex_unlock(&mVar); // Unlocking mutext
-
-		pthread_cond_signal(&Buffer_Not_Empty);  // Signaling incase the consumer did a wait earlier, it is now ready
-
-	}
-
-	return NULL;
-}
-
-void *sender(void *receiverList) {
+void *display(void *receiverList) {
 	List *rl = receiverList;
-	while (1) {
 
-		pthread_mutex_lock(&mVar);
-		if (rl->size < 1)
-		{
-			pthread_cond_wait(&Buffer_Not_Empty,&mVar); // Doing a wait since there are no messages
+	while (1) {
+		pthread_mutex_lock(&receiverDisplayMutex); // Locking mutext
+		if (rl->size < 1) {
+			pthread_cond_wait(&messagesToDisplay,&receiverDisplayMutex); // Do a wait on the condition that we have no more room for a message
 		}
-		
 
 		printf(">> %s\n", (char *) List_first(rl)); // Printing the message on the terminal
 
@@ -68,27 +48,56 @@ void *sender(void *receiverList) {
 
 		free(temp); // Freeing the dynamically allocated char array
 
-		pthread_mutex_unlock(&mVar); // Unlocking mutex variable
-        pthread_cond_signal(&Buffer_Not_Full); // Signalling incase the producer is waiting for space
 
+		pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
+
+		// pthread_cond_signal(&roomOnReceiverList);  // Signaling incase the consumer did a wait earlier, it is now ready
 
 	}
-	
-	return NULL;
-}
-
-void *display(void *receiverList) {
 
 	return NULL;
 }
 
-void *receiver(void *receiverList) {
+void *receiver(void *receiverDataArg) {
+	struct receiverData *receiverDataPtr = receiverDataArg;
+	List *rl = receiverDataPtr->senderList;
+	struct sockaddr_in sinRemote;
+	unsigned int sinLen = sizeof(sinRemote);
+
+	while (1) {
+		pthread_mutex_lock(&receiverDisplayMutex); // Locking mutext
+		if (rl->size > 0) {
+			pthread_cond_signal(&messagesToDisplay);
+			// pthread_cond_wait(&roomOnReceiverList,&receiverDisplayMutex); // Immediately waking up diplay
+		}
+
+		char *messageRx = (char *) malloc(MSG_MAX_LEN *sizeof(char));
+
+		int bytesRx = recvfrom(*(receiverDataPtr->sd), messageRx, MSG_MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
+		int terminateIdx = (bytesRx < MSG_MAX_LEN) ? bytesRx: MSG_MAX_LEN - 1;
+		messageRx[terminateIdx] = 0;
+
+		List_append(rl, messageRx); // Putting user input on the list
+
+		printf(">> %s", (char *) List_first(rl)); // Printing the message on the terminal
+
+		Node *temp = List_curr(rl);
+		
+		List_remove(rl); // Removing the first item on the list
+
+		free(temp); // Freeing the dynamically allocated char array
+
+		pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
+
+		pthread_cond_signal(&messagesToDisplay);  // Signaling incase the consumer did a wait earlier, it is now ready
+
+	}
 
 	return NULL;
 }
 
 int main (int argc, char *argv[]) {
-	// // Testing for command line arguements
+	// Testing for command line arguements
 	// if (argc > 1) {
 	// 	for (int i = 1; i < argc; i++)
 	// 	{
@@ -108,11 +117,7 @@ int main (int argc, char *argv[]) {
 	senderList  = List_create(); // Initializing the list to contain the elements to send
 	receiverList = List_create(); // Initializing the list to contain the elements received, and are waiting to display on the screen
 
-	// pthread_t producerThread, consumerThread;
-	// pthread_create(&producerThread, NULL, keyboardInput, senderList);
-	// sender(senderList);
-
-	// NOTE: SocketTaken from Dr. Brian Fraser CMPT 300 Workshop on June 26 2020
+	// NOTE: Socket Set Up Taken from Dr. Brian Fraser CMPT 300 Workshop on June 26 2020
 	struct sockaddr_in sin;
 	memset(&sin, 0 ,sizeof(sin));
 	sin.sin_family = AF_INET; // Connection may be from network
@@ -123,18 +128,28 @@ int main (int argc, char *argv[]) {
 
 	bind(socketDescriptor, (struct sockaddr*) &sin, sizeof(sin));
 
-	while (1)
-	{
-		printf("Hello");
-		struct sockaddr_in sinRemote;
-		unsigned int sinLen = sizeof(sinRemote);
-		char messageRx[MAX_LEN];
-		int bytesRx = recvfrom(socketDescriptor, messageRx, MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
-		int terminateIdx = (bytesRx < MAX_LEN) ? bytesRx: MAX_LEN - 1;
-		messageRx[terminateIdx] = 0;
-		printf("Message Received (%d bytes): \n\n'%s'\n", bytesRx, messageRx);
+	struct receiverData rd = {receiverList, &socketDescriptor};
+	pthread_t receiverThread;
+	// pthread_create(&receiverThread, NULL, receiver, &rd);
+	// display(receiverList);
 
-	}
+	receiver(&rd);
+
+
+
+
+
+	// while (1)
+	// {
+	// 	struct sockaddr_in sinRemote;
+	// 	unsigned int sinLen = sizeof(sinRemote);
+	// 	char messageRx[MSG_MAX_LEN];
+	// 	int bytesRx = recvfrom(socketDescriptor, messageRx, MSG_MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
+	// 	int terminateIdx = (bytesRx < MSG_MAX_LEN) ? bytesRx: MSG_MAX_LEN - 1;
+	// 	messageRx[terminateIdx] = 0;
+	// 	printf(">> %s", messageRx);
+
+	// }
 	
 
 
