@@ -1,15 +1,28 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h> // For malloc
-#include <pthread.h>
-#include <unistd.h> // For sleep
-#include <assert.h> // For assert
+#include <pthread.h> // For pthread
+
+#include <netdb.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+
 #include "list.h"
 
 
-#define MAX_NUM_CHARS 100
-pthread_cond_t Buffer_Not_Full=PTHREAD_COND_INITIALIZER;
+
+
+#define MAX_NUM_CHARS 100 // Deifing the maximum size of a message
+pthread_cond_t Buffer_Not_Full=PTHREAD_COND_INITIALIZER; // Creating condition variables
 pthread_cond_t Buffer_Not_Empty=PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mVar=PTHREAD_MUTEX_INITIALIZER;
+
+#define MAX_LEN 1024
+#define PORT 22110
+
+
+
+
 
 void *keyboardInput(void *senderList) {
 	List *sl = senderList;
@@ -64,10 +77,18 @@ void *sender(void *receiverList) {
 	return NULL;
 }
 
+void *display(void *receiverList) {
 
+	return NULL;
+}
+
+void *receiver(void *receiverList) {
+
+	return NULL;
+}
 
 int main (int argc, char *argv[]) {
-	// Testing for command line arguements
+	// // Testing for command line arguements
 	// if (argc > 1) {
 	// 	for (int i = 1; i < argc; i++)
 	// 	{
@@ -77,23 +98,47 @@ int main (int argc, char *argv[]) {
 	// 	} 
 	// } else {
 	// 	printf("Incorrect Number of arguements \n");
-	//	return 0;
+	// 	return 0;
 	// }
 
-	/*
-	Intializing the program by first creating the lists
-	*/
-	List *senderList, *receiverList;
+	// connect using: netcat -u 127.0.0.1 22110
+
+	// PROGRAM INITIALIZATION
+	List *senderList, *receiverList; // Defining the sendlist (messages to send) and the receiverList (messages received)
 	senderList  = List_create(); // Initializing the list to contain the elements to send
 	receiverList = List_create(); // Initializing the list to contain the elements received, and are waiting to display on the screen
 
-	pthread_t producerThread, consumerThread;
-	pthread_create(&producerThread, NULL, keyboardInput, senderList);
-	sender(senderList);
-	// pthread_create(&consumerThread, NULL, consumer, senderList);
-	// pthread_t keyboardInputThread;
-	// pthread_create(&keyboardInputThread, NULL, screen_output, senderList);
-	// keyboard_input(senderList);
+	// pthread_t producerThread, consumerThread;
+	// pthread_create(&producerThread, NULL, keyboardInput, senderList);
+	// sender(senderList);
+
+	// NOTE: SocketTaken from Dr. Brian Fraser CMPT 300 Workshop on June 26 2020
+	struct sockaddr_in sin;
+	memset(&sin, 0 ,sizeof(sin));
+	sin.sin_family = AF_INET; // Connection may be from network
+	sin.sin_addr.s_addr = htonl(INADDR_ANY); // Host to network long
+	sin.sin_port = htons(PORT); // Host to network short
+
+	int socketDescriptor = socket(PF_INET, SOCK_DGRAM, 0); // Creating the socket for UDP
+
+	bind(socketDescriptor, (struct sockaddr*) &sin, sizeof(sin));
+
+	while (1)
+	{
+		printf("Hello");
+		struct sockaddr_in sinRemote;
+		unsigned int sinLen = sizeof(sinRemote);
+		char messageRx[MAX_LEN];
+		int bytesRx = recvfrom(socketDescriptor, messageRx, MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
+		int terminateIdx = (bytesRx < MAX_LEN) ? bytesRx: MAX_LEN - 1;
+		messageRx[terminateIdx] = 0;
+		printf("Message Received (%d bytes): \n\n'%s'\n", bytesRx, messageRx);
+
+	}
+	
+
+
+
 
 
 
