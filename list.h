@@ -39,7 +39,7 @@ void print(List *pList);
 
 // Maximum total number of nodes (statically allocated) to be shared across all lists
 // (You may modify its value for your needs)
-#define LIST_MAX_NUM_NODES 5
+#define LIST_MAX_NUM_NODES 12
 
 // General Error Handling:
 // Client code is assumed never to call these functions with a NULL List pointer, or

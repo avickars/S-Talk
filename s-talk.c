@@ -18,8 +18,14 @@
 // pthread_mutex_t mVar=PTHREAD_MUTEX_INITIALIZER;
 
 pthread_cond_t messagesToDisplay=PTHREAD_COND_INITIALIZER; // Creating condition variables
-pthread_cond_t roomOnReceiverList=PTHREAD_COND_INITIALIZER;
 pthread_mutex_t receiverDisplayMutex=PTHREAD_MUTEX_INITIALIZER;
+
+pthread_cond_t messagesToSend=PTHREAD_COND_INITIALIZER; // Creating condition variables
+pthread_mutex_t acceptingInputMutext=PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t inputSpotAvailable=PTHREAD_COND_INITIALIZER;
+
+pthread_mutex_t screenMutext=PTHREAD_MUTEX_INITIALIZER;
+
 
 #define MSG_MAX_LEN 1024 // Defining the max size of a message
 #define PORT 22110
@@ -30,11 +36,72 @@ struct receiverData {
 	int *sd;
 };
 
+struct senderData {
+	List *receiverList;
+	int *sd;
+	struct sockaddr_in *serverAddress;
+};
+
+void *input(void *senderList) {
+	printf("In input \n");
+	List *sl = senderList;
+
+	while (1)
+	{
+		// pthread_mutex_lock(&screenMutext);
+		pthread_mutex_lock(&acceptingInputMutext); // Locking mutext
+		if (sl->size > 10) {
+			printf("Waiting");
+			pthread_cond_wait(&inputSpotAvailable,&acceptingInputMutext); // Do a wait on the condition that we have no more room for a message
+		}
+
+		char *messageRx = (char *) malloc(MSG_MAX_LEN *sizeof(char)); // Dynamically allocating an array of char for message
+		printf("Enter a message: ");
+		scanf("%s", messageRx); // Getting user input
+
+		List_append(sl, messageRx); // Putting user input on the list
+		printf("List Size: %d \n", sl->size);
+		printf("******************************************************\n");
+
+		pthread_mutex_unlock(&acceptingInputMutext); // Unlocking mutext
+		// pthread_mutex_unlock(&screenMutext);
+		pthread_cond_signal(&messagesToSend);  // Signaling incase the consumer did a wait earlier, it is now ready
+
+	}
+
+	return NULL;
+}
+
+void *sender(void *senderDataArg) {
+	struct senderData *senderDataPtr = senderDataArg;
+	struct sockaddr_in sinRemote;
+	unsigned int sinLen = sizeof(sinRemote);
+	while(1) {
+		pthread_mutex_lock(&acceptingInputMutext);
+		if (senderDataPtr->receiverList->size < 1) {
+			pthread_cond_wait(&messagesToSend, &acceptingInputMutext);
+		}
+		Node *temp = List_first(senderDataPtr->receiverList);
+		printf("Sent \n");
+		// int len = sendto(*(senderDataPtr->sd), (const char*) temp->item, MSG_MAX_LEN, 0, (const struct sockaddr *) senderDataPtr->serverAddress, sinLen);
+
+				
+		List_remove(senderDataPtr->receiverList); // Removing the first item on the list
+
+		free(temp); // Freeing the dynamically allocated char array
+
+		pthread_mutex_unlock(&acceptingInputMutext);
+		pthread_cond_signal(&inputSpotAvailable);
+
+	}
+	return NULL;
+}
 
 void *display(void *receiverList) {
 	List *rl = receiverList;
 
 	while (1) {
+		pthread_mutex_lock(&screenMutext);
 		pthread_mutex_lock(&receiverDisplayMutex); // Locking mutext
 		if (rl->size < 1) {
 			pthread_cond_wait(&messagesToDisplay,&receiverDisplayMutex); // Do a wait on the condition that we have no more room for a message
@@ -50,8 +117,9 @@ void *display(void *receiverList) {
 
 
 		pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
+		pthread_mutex_unlock(&screenMutext);
 
-		// pthread_cond_signal(&roomOnReceiverList);  // Signaling incase the consumer did a wait earlier, it is now ready
+		pthread_cond_signal(&messagesToDisplay);  // Signaling incase the consumer did a wait earlier, it is now ready
 
 	}
 
@@ -105,10 +173,12 @@ int main (int argc, char *argv[]) {
 		
 		
 	// 	} 
-	// } else {
-	// 	printf("Incorrect Number of arguements \n");
-	// 	return 0;
-	// }
+	// } 
+	
+	if (argc < 1) {
+		printf("Incorrect Number of arguements \n");
+		return 0;
+	}
 
 	// connect using: netcat -u 127.0.0.1 22110
 
@@ -122,18 +192,30 @@ int main (int argc, char *argv[]) {
 	memset(&sin, 0 ,sizeof(sin));
 	sin.sin_family = AF_INET; // Connection may be from network
 	sin.sin_addr.s_addr = htonl(INADDR_ANY); // Host to network long
-	sin.sin_port = htons(PORT); // Host to network short
+	// sin.sin_port = htons(PORT); // Host to network short
+	sin.sin_port = htons((unsigned short)strtoul(argv[1], NULL, 0)); // Host to network short
+
 
 	int socketDescriptor = socket(PF_INET, SOCK_DGRAM, 0); // Creating the socket for UDP
 
 	bind(socketDescriptor, (struct sockaddr*) &sin, sizeof(sin));
 
 	struct receiverData rd = {receiverList, &socketDescriptor};
-	pthread_t receiverThread;
-	pthread_create(&receiverThread, NULL, receiver, &rd);
-	display(receiverList);
+	struct senderData sd = {senderList, &socketDescriptor, &sin};
 
-	// receiver(&rd);
+	pthread_t receiverThread;
+	pthread_t senderThread;
+	pthread_t inputThread;
+	// pthread_create(&receiverThread, NULL, receiver, &rd);
+	// pthread_create(&senderThread, NULL, sender, &sd);
+	// pthread_create(&inputThread, NULL, input, senderList) ;
+	// display(receiverList);
+	input(senderList);
+	// sender(&sd);
+
+	
+	
+	
 
 
 
