@@ -51,6 +51,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -63,6 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1593381387667</updated>
       <workItem from="1593381392301" duration="47000" />
+      <workItem from="1593393574854" duration="81000" />
     </task>
     <servers />
   </component>
@@ -76,6 +78,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="454" y="159" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593381436547">
@@ -90,5 +93,9 @@
       <screen x="72" y="27" width="1848" height="948" />
     </state>
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.948@72.27.1848.948" timestamp="1593381433874" />
+    <state x="485" y="136" width="1022" height="737" key="SettingsEditor" timestamp="1593393593581">
+      <screen x="72" y="27" width="1848" height="948" />
+    </state>
+    <state x="485" y="136" width="1022" height="737" key="SettingsEditor/72.27.1848.948@72.27.1848.948" timestamp="1593393593581" />
   </component>
 </project>

@@ -19,6 +19,8 @@
 
 pthread_cond_t messagesToDisplay=PTHREAD_COND_INITIALIZER; // Creating condition variables
 pthread_mutex_t receiverDisplayMutex=PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t receiverSpotAvailable=PTHREAD_COND_INITIALIZER; // Creating condition variables
+
 
 pthread_cond_t messagesToSend=PTHREAD_COND_INITIALIZER; // Creating condition variables
 pthread_mutex_t acceptingInputMutext=PTHREAD_MUTEX_INITIALIZER;
@@ -50,8 +52,7 @@ void *input(void *senderList) {
 	{
 		// pthread_mutex_lock(&screenMutext);
 		pthread_mutex_lock(&acceptingInputMutext); // Locking mutext
-		if (sl->size > 10) {
-			printf("Waiting");
+		if (sl->size > 0) {
 			pthread_cond_wait(&inputSpotAvailable,&acceptingInputMutext); // Do a wait on the condition that we have no more room for a message
 		}
 
@@ -60,8 +61,6 @@ void *input(void *senderList) {
 		scanf("%s", messageRx); // Getting user input
 
 		List_append(sl, messageRx); // Putting user input on the list
-		printf("List Size: %d \n", sl->size);
-		printf("******************************************************\n");
 
 		pthread_mutex_unlock(&acceptingInputMutext); // Unlocking mutext
 		// pthread_mutex_unlock(&screenMutext);
@@ -82,7 +81,7 @@ void *sender(void *senderDataArg) {
 			pthread_cond_wait(&messagesToSend, &acceptingInputMutext);
 		}
 		Node *temp = List_first(senderDataPtr->receiverList);
-		printf("Sent \n");
+		printf("Sent message %s\n", (char *) temp);
 		// int len = sendto(*(senderDataPtr->sd), (const char*) temp->item, MSG_MAX_LEN, 0, (const struct sockaddr *) senderDataPtr->serverAddress, sinLen);
 
 				
@@ -119,7 +118,7 @@ void *display(void *receiverList) {
 		pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
 		pthread_mutex_unlock(&screenMutext);
 
-		pthread_cond_signal(&messagesToDisplay);  // Signaling incase the consumer did a wait earlier, it is now ready
+		pthread_cond_signal(&inputSpotAvailable);  // Signaling incase the consumer did a wait earlier, it is now ready
 
 	}
 
@@ -135,8 +134,8 @@ void *receiver(void *receiverDataArg) {
 	while (1) {
 		pthread_mutex_lock(&receiverDisplayMutex); // Locking mutext
 		if (rl->size > 0) {
-			pthread_cond_signal(&messagesToDisplay);
-			// pthread_cond_wait(&roomOnReceiverList,&receiverDisplayMutex); // Immediately waking up diplay
+			// pthread_cond_signal(&messagesToDisplay);
+			pthread_cond_wait(&receiverSpotAvailable,&receiverDisplayMutex); // Immediately waking up diplay
 		}
 
 		char *messageRx = (char *) malloc(MSG_MAX_LEN *sizeof(char));
@@ -206,11 +205,11 @@ int main (int argc, char *argv[]) {
 	pthread_t receiverThread;
 	pthread_t senderThread;
 	pthread_t inputThread;
-	// pthread_create(&receiverThread, NULL, receiver, &rd);
+	pthread_create(&receiverThread, NULL, receiver, &rd);
 	// pthread_create(&senderThread, NULL, sender, &sd);
 	// pthread_create(&inputThread, NULL, input, senderList) ;
-	// display(receiverList);
-	input(senderList);
+	display(receiverList);
+	// input(senderList);
 	// sender(&sd);
 
 	
