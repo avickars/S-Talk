@@ -174,7 +174,7 @@ int main (int argc, char *argv[]) {
 	// 	} 
 	// } 
 	
-	if (argc < 1) {
+	if (argc < 2) {
 		printf("Incorrect Number of arguements \n");
 		return 0;
 	}
@@ -194,6 +194,8 @@ int main (int argc, char *argv[]) {
 	// sin.sin_port = htons(PORT); // Host to network short
 	sin.sin_port = htons((unsigned short)strtoul(argv[1], NULL, 0)); // Host to network short
 
+	
+
 
 	int socketDescriptor = socket(PF_INET, SOCK_DGRAM, 0); // Creating the socket for UDP
 
@@ -206,8 +208,8 @@ int main (int argc, char *argv[]) {
 	pthread_t senderThread;
 	pthread_t inputThread;
 	pthread_create(&receiverThread, NULL, receiver, &rd);
-	// pthread_create(&senderThread, NULL, sender, &sd);
-	// pthread_create(&inputThread, NULL, input, senderList) ;
+	pthread_create(&senderThread, NULL, sender, &sd);
+	pthread_create(&inputThread, NULL, input, senderList) ;
 	display(receiverList);
 	// input(senderList);
 	// sender(&sd);
