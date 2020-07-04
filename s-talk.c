@@ -8,7 +8,6 @@ typedef struct senderArgs_s senderArgs;
 struct  senderArgs{
  	void *REMOTENAME;
 	void *REMOTEPORT;
-	void *HOSTPORT;
 };
 
 
@@ -26,9 +25,7 @@ int main (int argc, char *argv[]) {
 	char *REMOTENAME = argv[2];
 	char *REMOTEPORT = argv[3];
 
-	printf("%s \n", REMOTENAME);
-
-	struct senderArgs sendArgs = {REMOTENAME, REMOTEPORT, HOSTPORT};
+	struct senderArgs sendArgs = {REMOTENAME, REMOTEPORT};
 	// struct senderArgs sendArgs = {&argv[2], &argv[3]};
 
 	receiverInit(HOSTPORT);

@@ -1,0 +1,7 @@
+./s-talk 22110 aidan-MS-7B93 12345
+
+./s-talk 12345 aidan-MS-7B93 22110
+
+netcat -u aidan-MS-7B93 22110
+
+http://www.microhowto.info/howto/send_a_udp_datagram_in_c.html

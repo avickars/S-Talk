@@ -20,15 +20,12 @@ struct  senderArgs{
 
 void *sender(void *args) {
 	struct senderArgs *senderArgsPtr = args;
-	printf("In Sender \n");
-	printf("%s \n", (char *) senderArgsPtr->REMOTENAME);
-	printf("%s \n", (char *) senderArgsPtr->REMOTEPORT);
 
 	// Getting Remote Machine Info: 
 	// CITATION: http://beej.us/guide/bgnet/html/#getaddrinfoman
 	// CITATION: https://www.youtube.com/watch?v=MOrvead27B4
     struct addrinfo hints;
-	struct addrinfo *results;   
+	// struct addrinfo *results;   
 	struct addrinfo *result;    
 	struct sockaddr_in sinRemote;
 	int rv;
@@ -40,25 +37,27 @@ void *sender(void *args) {
 	hints.ai_socktype = SOCK_DGRAM;
 	
 
-	if ((rv = getaddrinfo((char *) senderArgsPtr->REMOTENAME, (char *) senderArgsPtr->REMOTEPORT, &hints, &results) != 0)) {
+	if ((rv = getaddrinfo((char *) senderArgsPtr->REMOTENAME, (char *) senderArgsPtr->REMOTEPORT, &hints, &result) != 0)) {
 		fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
 		exit(1);
 	}
 
-	for (result = results; result != NULL; result = results->ai_next) {
-		socketDescriptor = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
-		if (socketDescriptor == -1) {
-			continue;
-		}
+	socketDescriptor = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 
-		// if (bind(socketDescriptor, (struct sockaddr *) &sinRemote, sizeof(sinRemote) == -1) {
-		// 	close(socketDescriptor);
-		// 	continue;
-		// }
-		// break;
-	}
+	// for (result = results; result != NULL; result = results->ai_next) {
+	// 	socketDescriptor = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+	// 	if (socketDescriptor == -1) {
+	// 		continue;
+	// 	}
 
-	freeaddrinfo(results); // Freeing the linked list
+	// 	// if (bind(socketDescriptor, (struct sockaddr *) &sinRemote, sizeof(sinRemote) == -1) {
+	// 	// 	close(socketDescriptor);
+	// 	// 	continue;
+	// 	// }
+	// 	// break;
+	// }
+
+	// freeaddrinfo(results); // Freeing the linked list
 
 	// bind(socketDescriptor, (struct sockaddr *) &sinRemote, sizeof(sinRemote));
 	// int bytesRx = recvfrom(socketDescriptor, messageRx, MSG_MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
@@ -70,10 +69,11 @@ void *sender(void *args) {
 		if (List_count(senderList) < 1) {
 			pthread_cond_wait(&messagesToSend, &acceptingInputMutext);
 		}
-		Node *temp = List_first(senderList);
-		printf("Sent message %s\n", (char *) temp);
+		char *temp = (char *) List_first(senderList);
+	
 		// int len = sendto(*(senderDataPtr->sd), (const char*) temp->item, MSG_MAX_LEN, 0, (const struct sockaddr *) senderDataPtr->serverAddress, sinLen);
-		len = sendto(socketDescriptor, List_first(senderList), MSG_MAX_LEN, 0, result->ai_addr, result->ai_addrlen);
+		len = sendto(socketDescriptor, (char *) temp, MSG_MAX_LEN, 0, result->ai_addr, result->ai_addrlen);
+		printf("Sent message %s\n", (char *) temp);
 
 		List_remove(senderList); // Removing the first item on the list
 
@@ -83,7 +83,6 @@ void *sender(void *args) {
 		pthread_cond_signal(&inputSpotAvailable);
 
 	}
-	return NULL;
     return NULL;
 }
 
