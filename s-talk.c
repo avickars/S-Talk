@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h> // For malloc -- DELETE LATER
 #include "receiver.h"
 #include "display.h"
 #include "input.h"
@@ -21,6 +22,9 @@ int main (int argc, char *argv[]) {
 	// 	} 
 	// } 
 
+	printf("Welcome to s-talk! \n");
+	printf("Enter \"!<ENTER>\" to exit \n");
+
 	char *HOSTPORT = argv[1];
 	char *REMOTENAME = argv[2];
 	char *REMOTEPORT = argv[3];
@@ -36,6 +40,8 @@ int main (int argc, char *argv[]) {
 	inputDestructor();
 	displayDestructor();
 	receiverDestructor();
+
+
 	
 
 	

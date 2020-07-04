@@ -2,6 +2,12 @@
 
 ./s-talk 12345 aidan-MS-7B93 22110
 
+cat someTestData.txt | ./s-talk 12345 aidan-MS-7B93 22110
+
+./s-talk 22110 asb9700u-c01.csil.sfu.ca 12345 (Enter on Linux 2)
+
+./s-talk 12345 asb9700u-a01.csil.sfu.ca 22110 (Enter on Linux 1)
+
 netcat -u aidan-MS-7B93 22110
 
 http://www.microhowto.info/howto/send_a_udp_datagram_in_c.html

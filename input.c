@@ -24,8 +24,9 @@ void *input(void *unused) {
 		}
 
 		char *messageRx = (char *) malloc(MSG_MAX_LEN *sizeof(char)); // Dynamically allocating an array of char for message
-		printf("Enter a message: ");
-		scanf("%s", messageRx); // Getting user input
+		printf("\n Enter a message: ");
+		// scanf("%s", messageRx);
+		fgets(messageRx, 1024, stdin); // Getting user input
 
 		List_append(senderList, messageRx); // Putting user input on the list
 

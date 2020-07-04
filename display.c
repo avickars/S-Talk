@@ -13,7 +13,7 @@ void *display(void *unused) {
 			pthread_cond_wait(&messagesToDisplay,&receiverDisplayMutex); // Do a wait on the condition that we have no more room for a message
 		}
 
-		printf(">> %s\n", (char *) List_first(receiverList)); // Printing the message on the terminal
+		printf("\n >> %s", (char *) List_first(receiverList)); // Printing the message on the terminal
 
 		Node *temp = List_curr(receiverList);
 		
