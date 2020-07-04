@@ -4,25 +4,37 @@
 #include "input.h"
 #include "sender.h"
 
+typedef struct senderArgs_s senderArgs;
+struct  senderArgs{
+ 	void *REMOTENAME;
+	void *REMOTEPORT;
+	void *HOSTPORT;
+};
+
 
 int main (int argc, char *argv[]) {
 	// if (argc > 1) {
 	// 	for (int i = 1; i < argc; i++)
 	// 	{
-	// 		printf("%s\t", argv[i]);
+	// 		printf("%d --- %s\t", i,argv[i]);
 		
 		
 	// 	} 
 	// } 
 
-	char *PORT = argv[1];
+	char *HOSTPORT = argv[1];
 	char *REMOTENAME = argv[2];
 	char *REMOTEPORT = argv[3];
 
-	receiverInit(PORT);
+	printf("%s \n", REMOTENAME);
+
+	struct senderArgs sendArgs = {REMOTENAME, REMOTEPORT, HOSTPORT};
+	// struct senderArgs sendArgs = {&argv[2], &argv[3]};
+
+	receiverInit(HOSTPORT);
 	displayInit();
 	inputInit();
-	senderInit();
+	senderInit(&sendArgs);
 	senderDestructor();
 	inputDestructor();
 	displayDestructor();
