@@ -30,16 +30,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24f27e52-7cbd-45d8-9d61-30190610e405" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands" beforeDir="false" afterPath="$PROJECT_DIR$/commands" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display.c" beforeDir="false" afterPath="$PROJECT_DIR$/display.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display.h" beforeDir="false" afterPath="$PROJECT_DIR$/display.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input.c" beforeDir="false" afterPath="$PROJECT_DIR$/input.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input.h" beforeDir="false" afterPath="$PROJECT_DIR$/input.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/receiver.c" beforeDir="false" afterPath="$PROJECT_DIR$/receiver.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/receiver.h" beforeDir="false" afterPath="$PROJECT_DIR$/receiver.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s-talk.c" beforeDir="false" afterPath="$PROJECT_DIR$/s-talk.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sender.c" beforeDir="false" afterPath="$PROJECT_DIR$/sender.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sender.h" beforeDir="false" afterPath="$PROJECT_DIR$/sender.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +85,14 @@
       <workItem from="1593393574854" duration="81000" />
       <workItem from="1594171775056" duration="226000" />
     </task>
+    <task id="LOCAL-00001" summary="Input shutdown complete">
+      <created>1594254841281</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1594254841281</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -107,36 +107,45 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Input shutdown complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Input shutdown complete" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="2333" y="241" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594248764316">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2333" y="241" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594248764316" />
     <state x="454" y="159" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.1848.948@72.27.1848.948" timestamp="1593381436547" />
-    <state x="707" y="303" width="567" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1593381398770">
-      <screen x="72" y="27" width="1848" height="948" />
+    <state x="2580" y="314" width="567" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1594255223350">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
+    <state x="2580" y="314" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594255223350" />
     <state x="707" y="303" width="567" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.948@72.27.1848.948" timestamp="1593381398770" />
+    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2" timestamp="1594254841204">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254841204" />
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl" timestamp="1593381433874">
       <screen x="72" y="27" width="1848" height="948" />
     </state>
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.948@72.27.1848.948" timestamp="1593381433874" />
-    <state width="1874" height="301" key="GridCell.Tab.0.bottom" timestamp="1594254737720">
+    <state width="1874" height="301" key="GridCell.Tab.0.bottom" timestamp="1594254906012">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="301" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254737720" />
-    <state width="1874" height="301" key="GridCell.Tab.0.center" timestamp="1594254737720">
+    <state width="1874" height="301" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254906012" />
+    <state width="1874" height="301" key="GridCell.Tab.0.center" timestamp="1594254906012">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="301" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254737720" />
-    <state width="1874" height="301" key="GridCell.Tab.0.left" timestamp="1594254737720">
+    <state width="1874" height="301" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254906012" />
+    <state width="1874" height="301" key="GridCell.Tab.0.left" timestamp="1594254906012">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="301" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254737720" />
-    <state width="1874" height="301" key="GridCell.Tab.0.right" timestamp="1594254737720">
+    <state width="1874" height="301" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254906012" />
+    <state width="1874" height="301" key="GridCell.Tab.0.right" timestamp="1594254906012">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="301" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254737720" />
+    <state width="1874" height="301" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254906012" />
     <state width="1874" height="283" key="GridCell.Tab.1.bottom" timestamp="1594253920516">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -161,6 +170,10 @@
       <screen x="72" y="27" width="1848" height="948" />
     </state>
     <state x="485" y="136" width="1022" height="737" key="SettingsEditor/72.27.1848.948@72.27.1848.948" timestamp="1593393593581" />
+    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1594254842503">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594254842503" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -342,57 +355,57 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>50</line>
+          <line>53</line>
           <option name="timeStamp" value="76" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>51</line>
+          <line>54</line>
           <option name="timeStamp" value="77" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>53</line>
+          <line>56</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>54</line>
+          <line>57</line>
           <option name="timeStamp" value="79" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>56</line>
+          <line>59</line>
           <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>58</line>
+          <line>61</line>
           <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>59</line>
+          <line>62</line>
           <option name="timeStamp" value="82" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>60</line>
+          <line>63</line>
           <option name="timeStamp" value="83" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>62</line>
+          <line>78</line>
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>64</line>
+          <line>80</line>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>66</line>
+          <line>82</line>
           <option name="timeStamp" value="87" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -467,12 +480,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>23</line>
+          <line>26</line>
           <option name="timeStamp" value="102" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>24</line>
+          <line>27</line>
           <option name="timeStamp" value="103" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -522,12 +535,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>78</line>
+          <line>94</line>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/receiver.c</url>
-          <line>79</line>
+          <line>95</line>
           <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">

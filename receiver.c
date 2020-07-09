@@ -4,7 +4,10 @@
 #include <stdlib.h> // For strtoul and malloc
 #include <string.h> // For memset
 #include "list.h"
-#include "receiver.h"
+
+#include "display.h"
+#include "sender.h"
+#include "input.h"
 
 #include <netdb.h> // For socket
 #include <sys/socket.h>
@@ -59,6 +62,19 @@ void *receiver(void *argv) {
 		int bytesRx = recvfrom(socketDescriptor, messageRx, MSG_MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
 		int terminateIdx = (bytesRx < MSG_MAX_LEN) ? bytesRx: MSG_MAX_LEN - 1;
 		messageRx[terminateIdx] = 0;
+
+		if (*messageRx == '!') {
+		    printf("Shutdown");
+            pthread_cancel(inputThread);
+            pthread_cancel(displayThread);
+            pthread_cancel(senderThread);
+            shutdown(socketDescriptor, 2);
+            pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
+
+            pthread_cond_signal(&messagesToDisplay);
+            return NULL;
+		}
+
 
 		List_append(receiverList, messageRx); // Putting user input on the list
 

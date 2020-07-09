@@ -55,7 +55,7 @@ int main (int argc, char *argv[]) {
 
 
 
-
+printf("\n Goodbye! \n");
 
 return 0;
 }
