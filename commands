@@ -2,6 +2,8 @@
 
 ./s-talk 12345 aidan-MS-7B93 22110
 
+gdb --args ./s-talk 22110 aidan-MS-7B93 12345
+
 cat someTestData.txt | ./s-talk 12345 aidan-MS-7B93 22110
 
 ./s-talk 22110 asb9700u-c01.csil.sfu.ca 12345 (Enter on Linux 2)

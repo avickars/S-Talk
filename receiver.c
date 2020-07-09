@@ -7,6 +7,7 @@
 #include "receiver.h"
 
 #include <netdb.h> // For socket
+#include <sys/socket.h>
 
 pthread_t receiverThread; // Defining the receiverThread
 
@@ -18,7 +19,21 @@ pthread_cond_t messagesToDisplay=PTHREAD_COND_INITIALIZER; // Creating condition
 pthread_mutex_t receiverDisplayMutex=PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t receiverSpotAvailable=PTHREAD_COND_INITIALIZER; // Creating condition variables
 
+int socketDescriptor;
+
+void receiverCleanUp(void* unused) {
+    printf("In Display Cleanup");
+    pthread_mutex_unlock(&receiverDisplayMutex);
+    pthread_cond_destroy(&messagesToDisplay);
+    pthread_cond_destroy(&receiverSpotAvailable);
+    pthread_mutex_destroy(&receiverDisplayMutex);
+    shutdown(socketDescriptor, 2);
+}
+
 void *receiver(void *argv) {
+    int oldType;
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType);
+    pthread_cleanup_push(receiverCleanUp, NULL);
 	// NOTE: Socket Set Up Taken from Dr. Brian Fraser CMPT 300 Workshop on June 26 2020
 	struct sockaddr_in sin;
 	memset(&sin, 0 ,sizeof(sin));
@@ -26,7 +41,7 @@ void *receiver(void *argv) {
 	sin.sin_addr.s_addr = htonl(INADDR_ANY); // Host to network long
 	// sin.sin_port = htons(PORT); // Host to network short
 	sin.sin_port = htons((unsigned short)strtoul(argv, NULL, 0)); // Host to network short
-    int socketDescriptor = socket(PF_INET, SOCK_DGRAM, 0); // Creating the socket for UDP
+    socketDescriptor = socket(PF_INET, SOCK_DGRAM, 0); // Creating the socket for UDP
     bind(socketDescriptor, (struct sockaddr*) &sin, sizeof(sin));
 
     struct sockaddr_in sinRemote;
@@ -52,6 +67,7 @@ void *receiver(void *argv) {
 		pthread_cond_signal(&messagesToDisplay);  // Signaling incase the consumer did a wait earlier, it is now ready
 
 	}
+    pthread_cleanup_pop(1);
     return NULL;
 }
 

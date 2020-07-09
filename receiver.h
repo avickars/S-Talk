@@ -8,7 +8,9 @@ extern List *receiverList; // Making the receiverList Available
 
 extern pthread_cond_t messagesToDisplay; // Making this condition Available
 extern pthread_mutex_t receiverDisplayMutex; // Making this mutex Available
-extern pthread_cond_t receiverSpotAvailable; // Making this condition available 
+extern pthread_cond_t receiverSpotAvailable; // Making this condition available
+
+extern pthread_t receiverThread;
 
 void receiverInit(void *argv);
 

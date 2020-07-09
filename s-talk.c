@@ -36,11 +36,11 @@ int main (int argc, char *argv[]) {
 	displayInit();
 	inputInit();
 	senderInit(&sendArgs);
-	senderDestructor();
+
 	inputDestructor();
 	displayDestructor();
 	receiverDestructor();
-
+    senderDestructor();
 
 	
 

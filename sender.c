@@ -5,6 +5,12 @@
 #include "input.h"
 #include "list.h"
 
+#include "unistd.h" // For sleep
+
+#include "display.h"
+#include "receiver.h"
+
+
 #include <netdb.h> // For socket
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -43,30 +49,12 @@ void *sender(void *args) {
 
 	socketDescriptor = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 
-	// for (result = results; result != NULL; result = results->ai_next) {
-	// 	socketDescriptor = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
-	// 	if (socketDescriptor == -1) {
-	// 		continue;
-	// 	}
-
-	// 	// if (bind(socketDescriptor, (struct sockaddr *) &sinRemote, sizeof(sinRemote) == -1) {
-	// 	// 	close(socketDescriptor);
-	// 	// 	continue;
-	// 	// }
-	// 	// break;
-	// }
-
-	// freeaddrinfo(results); // Freeing the linked list
-
-	// bind(socketDescriptor, (struct sockaddr *) &sinRemote, sizeof(sinRemote));
-	// int bytesRx = recvfrom(socketDescriptor, messageRx, MSG_MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
-	
-
 
 	while(1) {
-		pthread_mutex_lock(&acceptingInputMutext);
+//	    sleep(50);
+        pthread_mutex_lock(&acceptingInputMutex);
 		if (List_count(senderList) < 1) {
-			pthread_cond_wait(&messagesToSend, &acceptingInputMutext);
+			pthread_cond_wait(&messagesToSend, &acceptingInputMutex);
 		}
 		char *temp = (char *) List_first(senderList);
 	
@@ -76,10 +64,21 @@ void *sender(void *args) {
 
 		List_remove(senderList); // Removing the first item on the list
 
+		if (*temp == '!') {
+		    pthread_cancel(inputThread);
+            pthread_cancel(receiverThread);
+		    pthread_cancel(displayThread);
+		    shutdown(socketDescriptor, 2);
+            pthread_cond_signal(&inputSpotAvailable);
+            pthread_mutex_unlock(&acceptingInputMutex);
+
+            return NULL;
+		}
+
 		free(temp); // Freeing the dynamically allocated char array
 
-		pthread_mutex_unlock(&acceptingInputMutext);
 		pthread_cond_signal(&inputSpotAvailable);
+        pthread_mutex_unlock(&acceptingInputMutex);
 
 	}
     return NULL;
@@ -90,5 +89,7 @@ void senderInit(void *argv) {
 }
 
 void senderDestructor() {
+    printf("In Sender Destructor");
     pthread_join(senderThread, NULL);
+    printf("Leaving Destructor");
 }

@@ -6,7 +6,14 @@
 
 pthread_t displayThread; // Defining the Display Thread
 
+void displayCleanUp(void *unused) {
+    printf("In Display Cleanup \n");
+}
+
 void *display(void *unused) {
+    int oldType;
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType);
+    pthread_cleanup_push(displayCleanUp, NULL);
     while (1) {
 		pthread_mutex_lock(&receiverDisplayMutex); // Locking mutext
 		if (receiverList->size < 1) {
@@ -27,7 +34,7 @@ void *display(void *unused) {
 		pthread_cond_signal(&receiverSpotAvailable);  // Signaling incase the consumer did a wait earlier, it is now ready
 
 	}
-
+    pthread_cleanup_pop(1);
 	return NULL;
 
 }
