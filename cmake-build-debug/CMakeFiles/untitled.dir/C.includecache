@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.c
+list.h
+/home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
+stdio.h
+-
+assert.h
+-
+
+/home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
+stdbool.h
+-
+
