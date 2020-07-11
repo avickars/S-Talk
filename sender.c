@@ -29,7 +29,7 @@ struct  senderArgs{
 
 void senderCleanup(void *socketDescriptor) {
     shutdown(*(int *)socketDescriptor, 2);
-    free(messageToSend);
+
     pthread_cond_signal(&inputSpotAvailable);
     pthread_mutex_unlock(&acceptingInputMutex);
 

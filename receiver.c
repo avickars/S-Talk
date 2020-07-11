@@ -24,16 +24,23 @@ pthread_cond_t receiverSpotAvailable=PTHREAD_COND_INITIALIZER; // Creating condi
 
 int socketDescriptor;
 
+static void freeItem(void *pItem) {
+    free(pItem);
+}
+
 void receiverCleanUp(void* unused) {
-    printf("In Display Cleanup");
     pthread_mutex_unlock(&receiverDisplayMutex);
+
     pthread_cond_destroy(&messagesToDisplay);
     pthread_cond_destroy(&receiverSpotAvailable);
     pthread_mutex_destroy(&receiverDisplayMutex);
+
+    List_free(receiverList, freeItem);
     shutdown(socketDescriptor, 2);
 }
 
 void *receiver(void *argv) {
+    int oldState;
     int oldType;
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType);
     pthread_cleanup_push(receiverCleanUp, NULL);
@@ -56,27 +63,16 @@ void *receiver(void *argv) {
 			// pthread_cond_signal(&messagesToDisplay);
 			pthread_cond_wait(&receiverSpotAvailable,&receiverDisplayMutex); // Immediately waking up diplay
 		}
+        pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldState);
+		char *messageReceived = (char *) malloc(MSG_MAX_LEN * sizeof(char));
+        List_append(receiverList, messageReceived); // Putting user input on the list
+        pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldState);
 
-		char *messageRx = (char *) malloc(MSG_MAX_LEN *sizeof(char));
-
-		int bytesRx = recvfrom(socketDescriptor, messageRx, MSG_MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
+		int bytesRx = recvfrom(socketDescriptor, messageReceived, MSG_MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
 		int terminateIdx = (bytesRx < MSG_MAX_LEN) ? bytesRx: MSG_MAX_LEN - 1;
-		messageRx[terminateIdx] = 0;
-
-		if (*messageRx == '!') {
-		    printf("Shutdown");
-            pthread_cancel(inputThread);
-            pthread_cancel(displayThread);
-            pthread_cancel(senderThread);
-            shutdown(socketDescriptor, 2);
-            pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
-
-            pthread_cond_signal(&messagesToDisplay);
-            return NULL;
-		}
+        messageReceived[terminateIdx] = 0;
 
 
-		List_append(receiverList, messageRx); // Putting user input on the list
 
 		pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
 
