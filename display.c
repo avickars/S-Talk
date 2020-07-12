@@ -16,6 +16,7 @@ void displayCleanUp(void *unused) {
 }
 
 void *display(void *unused) {
+    int oldState;
     int oldType;
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType);
     pthread_cleanup_push(displayCleanUp, NULL);
@@ -39,14 +40,12 @@ void *display(void *unused) {
             pthread_exit(NULL);
         }
 
-		
+		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE,&oldState);
 		List_remove(receiverList); // Removing the first item on the list
-
 		free(messageToDisplay); // Freeing the dynamically allocated char array
-
+        pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldState);
 
 		pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
-
 		pthread_cond_signal(&receiverSpotAvailable);  // Signaling incase the consumer did a wait earlier, it is now ready
 
 	}

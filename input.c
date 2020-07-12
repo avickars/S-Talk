@@ -30,9 +30,10 @@ void inputCleanUp(void *unused) {
 }
 
 void *input(void *unused) {
+    int oldState;
     int oldType;
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType);
-    int oldState;
+
 
     pthread_cleanup_push(inputCleanUp, NULL);
     while (1)

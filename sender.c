@@ -36,6 +36,7 @@ void senderCleanup(void *socketDescriptor) {
 }
 
 void *sender(void *args) {
+    int oldState;
 	struct senderArgs *senderArgsPtr = args;
 
 	// Getting Remote Machine Info: 
@@ -70,7 +71,7 @@ void *sender(void *args) {
 
 		len = sendto(socketDescriptor, (char *) messageToSend, MSG_MAX_LEN, 0, result->ai_addr, result->ai_addrlen);
 
-		List_remove(senderList); // Removing the first item on the list
+
 
 		if (*messageToSend == '!') {
 		    pthread_cancel(inputThread); // Sending a cancellation request to the input thread
@@ -79,8 +80,10 @@ void *sender(void *args) {
 
             pthread_exit(NULL); // Exiting the thread
 		}
-
+		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldState);
+        List_remove(senderList); // Removing the first item on the list
 		free(messageToSend); // Freeing the dynamically allocated char array
+		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldState);
 
 		pthread_cond_signal(&inputSpotAvailable);
         pthread_mutex_unlock(&acceptingInputMutex);
