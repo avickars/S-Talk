@@ -1,1 +1,22 @@
-hello world. \n
+Welcome to s-talk! 
+Enter "!<ENTER>" to exit 
+
+ Enter a message: 
+ >> testing1
+
+ >> !
+
+
+
+ Goodbye! 
+Welcome to s-talk! 
+Enter "!<ENTER>" to exit 
+
+ Enter a message: 
+ >> testing2
+
+ >> !
+
+
+
+ Goodbye! 

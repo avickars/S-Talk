@@ -50,7 +50,6 @@ void *display(void *unused) {
 
 	}
     pthread_cleanup_pop(1);
-	return NULL;
 
 }
 

@@ -12,14 +12,13 @@
 #include "display.h"
 #include "receiver.h"
 
-
-
-
 #define MSG_MAX_LEN 1024
 
 pthread_t senderThread; // Defining the Sender thread
 
 char *messageToSend; // Pointer to the message to be sent
+
+struct addrinfo *result;
 
 typedef struct senderArgs_s senderArgs;
 struct  senderArgs{
@@ -28,7 +27,8 @@ struct  senderArgs{
 };
 
 void senderCleanup(void *socketDescriptor) {
-    shutdown(*(int *)socketDescriptor, 2);
+    shutdown(*(int *)socketDescriptor, 2); // Shutting down the socket
+    freeaddrinfo(result); // Freeing the structure that getaddrinfo() dynamically allocates
 
     pthread_cond_signal(&inputSpotAvailable);
     pthread_mutex_unlock(&acceptingInputMutex);
@@ -43,7 +43,6 @@ void *sender(void *args) {
 	// CITATION: http://beej.us/guide/bgnet/html/#getaddrinfoman
 	// CITATION: https://www.youtube.com/watch?v=MOrvead27B4
     struct addrinfo hints;
-	struct addrinfo *result;    
 	struct sockaddr_in sinRemote;
 	int rv;
 	int len;
@@ -70,8 +69,6 @@ void *sender(void *args) {
 		messageToSend = (char *) List_first(senderList);
 
 		len = sendto(socketDescriptor, (char *) messageToSend, MSG_MAX_LEN, 0, result->ai_addr, result->ai_addrlen);
-
-
 
 		if (*messageToSend == '!') {
 		    pthread_cancel(inputThread); // Sending a cancellation request to the input thread

@@ -30,7 +30,6 @@ int main (int argc, char *argv[]) {
 	char *REMOTEPORT = argv[3];
 
 	struct senderArgs sendArgs = {REMOTENAME, REMOTEPORT};
-	// struct senderArgs sendArgs = {&argv[2], &argv[3]};
 
 	receiverInit(HOSTPORT);
 	displayInit();

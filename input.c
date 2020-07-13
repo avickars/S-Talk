@@ -2,6 +2,7 @@
 #include <pthread.h> // For pthreads
 #include <stdlib.h> // For malloc
 #include <stdio.h> // For printf
+#include <unistd.h> //For read()
 #include "list.h"
 
 #define MSG_MAX_LEN 1024
@@ -33,7 +34,7 @@ void *input(void *unused) {
     int oldState;
     int oldType;
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType);
-
+    int numBytes;
 
     pthread_cleanup_push(inputCleanUp, NULL);
     while (1)
@@ -51,7 +52,17 @@ void *input(void *unused) {
 
 		printf("\n Enter a message: ");
 		// scanf("%s", messageFromUser);
-		fgets(messageFromUser, 1024, stdin); // Getting user input
+
+//		fgets(messageFromUser, MSG_MAX_LEN, stdin); // Getting user input
+
+		numBytes = read(0, messageFromUser, MSG_MAX_LEN);
+//        do {
+//            numBytes = read(0, messageFromUser, MSG_MAX_LEN);
+//        } while (numBytes > 0);
+
+
+
+		printf("numbytes: %d", numBytes);
 
 		pthread_cond_signal(&messagesToSend);  // Signaling incase the consumer did a wait earlier, it is now ready
         pthread_mutex_unlock(&acceptingInputMutex); // Unlocking mutext
