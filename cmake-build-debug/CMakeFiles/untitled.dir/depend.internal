@@ -3,8 +3,10 @@
 
 CMakeFiles/untitled.dir/display.c.o
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/display.c
+ /home/aidan/Documents/GitRepositories/CMPT300Assignment3/input.h
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/receiver.h
+ /home/aidan/Documents/GitRepositories/CMPT300Assignment3/sender.h
 CMakeFiles/untitled.dir/input.c.o
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/input.c
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
@@ -14,11 +16,13 @@ CMakeFiles/untitled.dir/list.c.o
 CMakeFiles/untitled.dir/receiver.c.o
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/display.h
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/input.h
+ /home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/receiver.c
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/sender.h
 CMakeFiles/untitled.dir/s-talk.c.o
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/display.h
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/input.h
+ /home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/receiver.h
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/s-talk.c
  /home/aidan/Documents/GitRepositories/CMPT300Assignment3/sender.h

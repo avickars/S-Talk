@@ -20,11 +20,21 @@ static void freeItem(void *pItem) {
 }
 
 void inputCleanUp(void *unused) {
-    pthread_mutex_unlock(&acceptingInputMutex);
+    if (pthread_mutex_unlock(&acceptingInputMutex) != 0) {
+        exit(1);
+    }
 
-    pthread_cond_destroy(&messagesToSend);
-    pthread_cond_destroy(&inputSpotAvailable);
-    pthread_mutex_destroy(&acceptingInputMutex);
+    if (pthread_cond_destroy(&messagesToSend) != 0) {
+        exit(1);
+    }
+
+    if (pthread_cond_destroy(&inputSpotAvailable) != 0) {
+        exit(1);
+    }
+
+    if (pthread_mutex_destroy(&acceptingInputMutex) != 0) {
+        exit(1);
+    }
 
     List_free(senderList, freeItem);
 
@@ -33,21 +43,32 @@ void inputCleanUp(void *unused) {
 void *input(void *unused) {
     int oldState;
     int oldType;
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType);
+    if (pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType) != 0) {
+        exit(1);
+    }
     int numBytes;
 
     pthread_cleanup_push(inputCleanUp, NULL);
-    while (1)
-	{
-		pthread_mutex_lock(&acceptingInputMutex); // Locking mutext
+    while (1) {
+        // Locking mutex
+		if (pthread_mutex_lock(&acceptingInputMutex) != 0) {
+		    exit(1);
+		}
 		if (List_count(senderList) > 0) {
-			pthread_cond_wait(&inputSpotAvailable,&acceptingInputMutex); // Do a wait on the condition that we have no more room for a message
+            // Do a wait on the condition that we have no more room for a message
+			if(pthread_cond_wait(&inputSpotAvailable,&acceptingInputMutex) != 0) {
+			    exit(1);
+			}
 		}
         // Disabling the cancellation state to ensure that space that is allocated makes it onto the senderList(So it can be freed later on)
-		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldState);
+		if (pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldState) != 0) {
+		    exit(1);
+		}
 		char *messageFromUser = (char *) malloc(MSG_MAX_LEN * sizeof(char)); // Dynamically allocating an array of char for message
         List_append(senderList, messageFromUser); // Putting user input on the list
-        pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldState);
+        if (pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldState) != 0) {
+            exit(1);
+        }
         // Enabling the cancellation state now that the allocated memory is on the list
 
 		printf("\n Enter a message: ");
@@ -60,12 +81,16 @@ void *input(void *unused) {
 //            numBytes = read(0, messageFromUser, MSG_MAX_LEN);
 //        } while (numBytes > 0);
 
-
-
 		printf("numbytes: %d", numBytes);
 
-		pthread_cond_signal(&messagesToSend);  // Signaling incase the consumer did a wait earlier, it is now ready
-        pthread_mutex_unlock(&acceptingInputMutex); // Unlocking mutext
+        // Signaling incase the consumer did a wait earlier, it is now ready
+		if (pthread_cond_signal(&messagesToSend) != 0) {
+		    exit(1);
+		}
+        // Unlocking mutext
+        if (pthread_mutex_unlock(&acceptingInputMutex) != 0) {
+            exit(1);
+        }
 	}
     pthread_cleanup_pop(1);
 }
@@ -73,9 +98,13 @@ void *input(void *unused) {
 
 void inputInit() {
     senderList = List_create(); // Initializing the Receiver List
-    pthread_create(&inputThread, NULL, input, NULL);
+    if (pthread_create(&inputThread, NULL, input, NULL) != 0) {
+        exit(1);
+    }
 }
 
 void inputDestructor() {
-    pthread_join(inputThread,NULL);
+    if (pthread_join(inputThread,NULL) != 0) {
+        exit(1);
+    }
 }

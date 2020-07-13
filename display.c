@@ -10,22 +10,38 @@
 pthread_t displayThread; // Defining the Display Thread
 
 void displayCleanUp(void *unused) {
-    pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
-    pthread_cond_signal(&messagesToDisplay);
+
+    // Unlocking mutex
+    if (pthread_mutex_unlock(&receiverDisplayMutex) != 0) {
+        exit(1);
+    }
+
+    if (pthread_cond_signal(&messagesToDisplay) != 0) {
+        exit(1);
+    }
 
 }
 
 void *display(void *unused) {
     int oldState;
     int oldType;
-    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType);
+    if (pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType) != 0) {
+        exit(1);
+    }
     pthread_cleanup_push(displayCleanUp, NULL);
 
     char *messageToDisplay;
     while (1) {
-		pthread_mutex_lock(&receiverDisplayMutex); // Locking mutext
+        // Locking mutext
+		if (pthread_mutex_lock(&receiverDisplayMutex) != 0) {
+		    exit(1);
+		}
+
 		if (receiverList->size < 1) {
-			pthread_cond_wait(&messagesToDisplay,&receiverDisplayMutex); // Do a wait on the condition that we have no more room for a message
+            // Do a wait on the condition that we have no more room for a message
+			if (pthread_cond_wait(&messagesToDisplay,&receiverDisplayMutex) != 0) {
+			    exit(1);
+			}
 		}
 
 		messageToDisplay = (char *) List_first(receiverList);
@@ -33,20 +49,43 @@ void *display(void *unused) {
 
 
         if (*messageToDisplay == '!') {
-            pthread_cancel(receiverThread);
-            pthread_cancel(inputThread);
-            pthread_cancel(senderThread);
+            // Sending a cancellation request to the sender thread
+            if (pthread_cancel(senderThread) != 0) {
+                exit(1);
+            }
+
+            // Sending a cancellation request to the input thread
+            if(pthread_cancel(inputThread) != 0) {
+                exit(1);
+            }
+
+            // Sending a cancellation request to the receiver thread
+            if (pthread_cancel(receiverThread) != 0) {
+                exit(1);
+            }
 
             pthread_exit(NULL);
         }
 
-		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE,&oldState);
+        // Not allowing cancellation here as acting on a cancellation request here could result in a memory leakage
+        if (pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldState) != 0) {
+            exit(1);
+        }
 		List_remove(receiverList); // Removing the first item on the list
 		free(messageToDisplay); // Freeing the dynamically allocated char array
-        pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldState);
+        if (pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldState) != 0) {
+            exit(1);
+        }
 
-		pthread_mutex_unlock(&receiverDisplayMutex); // Unlocking mutext
-		pthread_cond_signal(&receiverSpotAvailable);  // Signaling incase the consumer did a wait earlier, it is now ready
+        // Unlocking mutext
+        if (pthread_cond_signal(&receiverSpotAvailable) != 0) {
+            exit(1);
+        }
+
+        // Signaling incase the consumer did a wait earlier, it is now ready
+        if (pthread_mutex_unlock(&receiverDisplayMutex) != 0) {
+            exit(1);
+        }
 
 	}
     pthread_cleanup_pop(1);
