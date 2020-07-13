@@ -33,20 +33,13 @@ void senderCleanup(void *socketDescriptor) {
     }
     freeaddrinfo(result); // Freeing the structure that getaddrinfo() dynamically allocates
 
-//    if (pthread_cond_signal(&inputSpotAvailable) != 0) {
-////        exit(1);
-//    }
+    if (pthread_cond_signal(&inputSpotAvailable) != 0) {
+        exit(1);
+    }
 //
     if (pthread_mutex_unlock(&acceptingInputMutex) != 0) {
 //        exit(1);
     }
-
-//     Sending a cancellation request to the input thread
-    if(pthread_cancel(inputThread) != 0) {
-        exit(1);
-    }
-
-
 }
 
 void *sender(void *args) {
@@ -94,9 +87,9 @@ void *sender(void *args) {
         // Time to shutdown
 		if (*messageToSend == '!') {
             // Sending a cancellation request to the input thread
-//		    if(pthread_cancel(inputThread) != 0) {
-//		        exit(1);
-//		    }
+		    if(pthread_cancel(inputThread) != 0) {
+		        exit(1);
+		    }
 
             // Sending a cancellation request to the receiver thread
             if (pthread_cancel(receiverThread) != 0) {

@@ -20,24 +20,12 @@ static void freeItem(void *pItem) {
 }
 
 void inputCleanUp(void *unused) {
+    if (pthread_cond_signal(&messagesToSend) != 0) {
+        exit(1);
+    }
     if (pthread_mutex_unlock(&acceptingInputMutex) != 0) {
         exit(1);
     }
-
-    if (pthread_cond_destroy(&messagesToSend) != 0) {
-        exit(1);
-    }
-
-    if (pthread_cond_destroy(&inputSpotAvailable) != 0) {
-        exit(1);
-    }
-
-    if (pthread_mutex_destroy(&acceptingInputMutex) != 0) {
-        exit(1);
-    }
-
-    List_free(senderList, freeItem);
-
 }
 
 void *input(void *unused) {
@@ -104,6 +92,20 @@ void inputInit() {
 }
 
 void inputDestructor() {
+    if (pthread_cond_destroy(&messagesToSend) != 0) {
+        exit(1);
+    }
+
+    if (pthread_cond_destroy(&inputSpotAvailable) != 0) {
+        exit(1);
+    }
+
+    if (pthread_mutex_destroy(&acceptingInputMutex) != 0) {
+        exit(1);
+    }
+
+    List_free(senderList, freeItem);
+
     if (pthread_join(inputThread,NULL) != 0) {
         exit(1);
     }

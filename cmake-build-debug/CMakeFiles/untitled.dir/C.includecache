@@ -6,20 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/display.c
-pthread.h
--
-stdio.h
--
-stdlib.h
--
-receiver.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/receiver.h
-sender.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/sender.h
-input.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/input.h
-
 /home/aidan/Documents/GitRepositories/CMPT300Assignment3/display.h
 
 /home/aidan/Documents/GitRepositories/CMPT300Assignment3/input.h
@@ -61,6 +47,4 @@ display.h
 /home/aidan/Documents/GitRepositories/CMPT300Assignment3/display.h
 receiver.h
 /home/aidan/Documents/GitRepositories/CMPT300Assignment3/receiver.h
-
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/sender.h
 

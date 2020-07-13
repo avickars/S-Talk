@@ -32,17 +32,13 @@
     <list default="true" id="24f27e52-7cbd-45d8-9d61-30190610e405" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/C.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/C.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/depend.internal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/display.c.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/display.c.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/input.c.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/input.c.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/receiver.c.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/receiver.c.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/s-talk.c.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/s-talk.c.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/sender.c.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/sender.c.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/untitled" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/untitled" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands" beforeDir="false" afterPath="$PROJECT_DIR$/commands" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display.c" beforeDir="false" afterPath="$PROJECT_DIR$/display.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/input.c" beforeDir="false" afterPath="$PROJECT_DIR$/input.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/s-talk.c" beforeDir="false" afterPath="$PROJECT_DIR$/s-talk.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sender.c" beforeDir="false" afterPath="$PROJECT_DIR$/sender.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,7 +93,8 @@
       <workItem from="1593393574854" duration="81000" />
       <workItem from="1594171775056" duration="226000" />
       <workItem from="1594512905499" duration="1413000" />
-      <workItem from="1594598431992" duration="11122000" />
+      <workItem from="1594598431992" duration="11258000" />
+      <workItem from="1594662083509" duration="1271000" />
     </task>
     <task id="LOCAL-00001" summary="Input shutdown complete">
       <created>1594254841281</created>
@@ -127,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594602238465</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="almost finished error handling">
+      <created>1594609935411</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1594609935411</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -147,7 +151,8 @@
     <MESSAGE value="Completed Shutdowns" />
     <MESSAGE value="added more guards for shutdown" />
     <MESSAGE value="Fixed memory leak in getaddrinfo()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed memory leak in getaddrinfo()" />
+    <MESSAGE value="almost finished error handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="almost finished error handling" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2333" y="241" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594600957045">
@@ -160,46 +165,46 @@
     </state>
     <state x="2580" y="314" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594255223350" />
     <state x="707" y="303" width="567" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.948@72.27.1848.948" timestamp="1593381398770" />
-    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2" timestamp="1594602238387">
+    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2" timestamp="1594609935358">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594602238387" />
+    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609935358" />
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl" timestamp="1593381433874">
       <screen x="72" y="27" width="1848" height="948" />
     </state>
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.948@72.27.1848.948" timestamp="1593381433874" />
-    <state width="1876" height="265" key="GridCell.Tab.0.bottom" timestamp="1594609691798">
+    <state width="1876" height="463" key="GridCell.Tab.0.bottom" timestamp="1594662863533">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="265" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609691798" />
-    <state width="1876" height="265" key="GridCell.Tab.0.center" timestamp="1594609691798">
+    <state width="1876" height="463" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594662863533" />
+    <state width="1876" height="463" key="GridCell.Tab.0.center" timestamp="1594662863533">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="265" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609691798" />
-    <state width="1876" height="265" key="GridCell.Tab.0.left" timestamp="1594609691798">
+    <state width="1876" height="463" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594662863533" />
+    <state width="1876" height="463" key="GridCell.Tab.0.left" timestamp="1594662863533">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="265" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609691798" />
-    <state width="1876" height="265" key="GridCell.Tab.0.right" timestamp="1594609691798">
+    <state width="1876" height="463" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594662863533" />
+    <state width="1876" height="463" key="GridCell.Tab.0.right" timestamp="1594662863533">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="265" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609691798" />
-    <state width="1876" height="265" key="GridCell.Tab.1.bottom" timestamp="1594609691798">
+    <state width="1876" height="463" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594662863533" />
+    <state width="1876" height="265" key="GridCell.Tab.1.bottom" timestamp="1594609947243">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="265" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609691798" />
-    <state width="1876" height="265" key="GridCell.Tab.1.center" timestamp="1594609691798">
+    <state width="1876" height="265" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609947243" />
+    <state width="1876" height="265" key="GridCell.Tab.1.center" timestamp="1594609947243">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="265" key="GridCell.Tab.1.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609691798" />
-    <state width="1876" height="265" key="GridCell.Tab.1.left" timestamp="1594609691798">
+    <state width="1876" height="265" key="GridCell.Tab.1.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609947243" />
+    <state width="1876" height="265" key="GridCell.Tab.1.left" timestamp="1594609947243">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="265" key="GridCell.Tab.1.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609691798" />
-    <state width="1876" height="265" key="GridCell.Tab.1.right" timestamp="1594609691798">
+    <state width="1876" height="265" key="GridCell.Tab.1.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609947243" />
+    <state width="1876" height="265" key="GridCell.Tab.1.right" timestamp="1594609947243">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="265" key="GridCell.Tab.1.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609691798" />
+    <state width="1876" height="265" key="GridCell.Tab.1.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609947243" />
     <state x="2569" y="237" width="611" height="640" key="RollbackChangesDialog" timestamp="1594171391492">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -208,14 +213,14 @@
       <screen x="72" y="27" width="1848" height="948" />
     </state>
     <state x="485" y="136" width="1022" height="737" key="SettingsEditor/72.27.1848.948@72.27.1848.948" timestamp="1593393593581" />
-    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1594602239736">
+    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1594609936367">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594602239736" />
-    <state x="594" y="0" width="862" height="870" maximized="true" key="dock-window-1" timestamp="1594607377905">
+    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594609936367" />
+    <state x="461" y="0" width="963" height="686" maximized="true" key="dock-window-1" timestamp="1594662875454">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="594" y="0" width="862" height="870" maximized="true" key="dock-window-1/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594607377905" />
+    <state x="461" y="0" width="963" height="686" maximized="true" key="dock-window-1/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594662875454" />
     <state x="624" y="245" key="run.anything.popup" timestamp="1594607816811">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -231,7 +236,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/s-talk.c</url>
-          <line>56</line>
+          <line>57</line>
           <option name="timeStamp" value="137" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -301,127 +306,107 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>23</line>
-          <option name="timeStamp" value="151" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/input.c</url>
-          <line>27</line>
-          <option name="timeStamp" value="152" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/input.c</url>
-          <line>31</line>
-          <option name="timeStamp" value="153" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/input.c</url>
-          <line>35</line>
-          <option name="timeStamp" value="154" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/input.c</url>
-          <line>46</line>
+          <line>34</line>
           <option name="timeStamp" value="155" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>54</line>
+          <line>42</line>
           <option name="timeStamp" value="156" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>59</line>
+          <line>47</line>
           <option name="timeStamp" value="157" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>64</line>
+          <line>52</line>
           <option name="timeStamp" value="158" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>87</line>
+          <line>75</line>
           <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>91</line>
+          <line>79</line>
           <option name="timeStamp" value="161" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>101</line>
+          <line>89</line>
           <option name="timeStamp" value="162" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>107</line>
+          <line>109</line>
           <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>143</line>
+          <line>136</line>
           <option name="timeStamp" value="164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>137</line>
+          <line>130</line>
           <option name="timeStamp" value="165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>127</line>
+          <line>120</line>
           <option name="timeStamp" value="166" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>124</line>
+          <line>117</line>
           <option name="timeStamp" value="167" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>120</line>
+          <line>113</line>
           <option name="timeStamp" value="168" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>115</line>
+          <line>108</line>
           <option name="timeStamp" value="169" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>107</line>
+          <line>100</line>
           <option name="timeStamp" value="170" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>102</line>
+          <line>95</line>
           <option name="timeStamp" value="171" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>97</line>
+          <line>90</line>
           <option name="timeStamp" value="172" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>90</line>
+          <line>83</line>
           <option name="timeStamp" value="173" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>81</line>
+          <line>74</line>
           <option name="timeStamp" value="174" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>76</line>
+          <line>69</line>
           <option name="timeStamp" value="175" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>71</line>
+          <line>64</line>
           <option name="timeStamp" value="176" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -486,128 +471,108 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>70</line>
+          <line>63</line>
           <option name="timeStamp" value="189" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>75</line>
+          <line>68</line>
           <option name="timeStamp" value="190" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>80</line>
+          <line>73</line>
           <option name="timeStamp" value="191" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>89</line>
+          <line>82</line>
           <option name="timeStamp" value="192" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>96</line>
+          <line>89</line>
           <option name="timeStamp" value="193" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>101</line>
+          <line>94</line>
           <option name="timeStamp" value="194" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>106</line>
+          <line>99</line>
           <option name="timeStamp" value="195" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>114</line>
+          <line>107</line>
           <option name="timeStamp" value="196" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>119</line>
+          <line>112</line>
           <option name="timeStamp" value="197" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>123</line>
+          <line>116</line>
           <option name="timeStamp" value="198" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>126</line>
+          <line>119</line>
           <option name="timeStamp" value="199" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>106</line>
+          <line>108</line>
           <option name="timeStamp" value="200" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>100</line>
+          <line>88</line>
           <option name="timeStamp" value="201" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>90</line>
+          <line>78</line>
           <option name="timeStamp" value="202" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>86</line>
+          <line>74</line>
           <option name="timeStamp" value="203" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>69</line>
+          <line>57</line>
           <option name="timeStamp" value="204" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>68</line>
+          <line>56</line>
           <option name="timeStamp" value="205" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>63</line>
+          <line>51</line>
           <option name="timeStamp" value="206" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>58</line>
+          <line>46</line>
           <option name="timeStamp" value="207" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>53</line>
+          <line>41</line>
           <option name="timeStamp" value="208" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>45</line>
+          <line>33</line>
           <option name="timeStamp" value="209" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/input.c</url>
-          <line>34</line>
-          <option name="timeStamp" value="210" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/input.c</url>
-          <line>30</line>
-          <option name="timeStamp" value="211" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/input.c</url>
-          <line>26</line>
-          <option name="timeStamp" value="212" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/input.c</url>
-          <line>22</line>
-          <option name="timeStamp" value="213" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/display.c</url>
