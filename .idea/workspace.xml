@@ -30,13 +30,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24f27e52-7cbd-45d8-9d61-30190610e405" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/instructorList.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/untitled.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/untitled.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/display.c" beforeDir="false" afterPath="$PROJECT_DIR$/display.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input.c" beforeDir="false" afterPath="$PROJECT_DIR$/input.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/receiver.c" beforeDir="false" afterPath="$PROJECT_DIR$/receiver.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/receiver.h" beforeDir="false" afterPath="$PROJECT_DIR$/receiver.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s-talk.c" beforeDir="false" afterPath="$PROJECT_DIR$/s-talk.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sender.c" beforeDir="false" afterPath="$PROJECT_DIR$/sender.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/list.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/list.h" beforeDir="false" afterPath="$PROJECT_DIR$/list.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +72,11 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="untitled" TARGET_NAME="untitled" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="untitled" RUN_TARGET_NAME="untitled">
@@ -91,7 +105,11 @@
       <workItem from="1594171775056" duration="226000" />
       <workItem from="1594512905499" duration="1413000" />
       <workItem from="1594598431992" duration="11258000" />
-      <workItem from="1594662083509" duration="7046000" />
+      <workItem from="1594662083509" duration="7639000" />
+      <workItem from="1594692188534" duration="36000" />
+      <workItem from="1594692567879" duration="3000" />
+      <workItem from="1594692578156" duration="32000" />
+      <workItem from="1594697064785" duration="331000" />
     </task>
     <task id="LOCAL-00001" summary="Input shutdown complete">
       <created>1594254841281</created>
@@ -135,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594663368799</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="almost completed error handling">
+      <created>1594688193359</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1594688193359</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -157,7 +182,8 @@
     <MESSAGE value="Fixed memory leak in getaddrinfo()" />
     <MESSAGE value="almost finished error handling" />
     <MESSAGE value="adjusted input cleanup and destructor" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjusted input cleanup and destructor" />
+    <MESSAGE value="almost completed error handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="almost completed error handling" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2333" y="241" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594600957045">
@@ -170,30 +196,34 @@
     </state>
     <state x="2580" y="314" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594255223350" />
     <state x="707" y="303" width="567" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.948@72.27.1848.948" timestamp="1593381398770" />
-    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2" timestamp="1594663368715">
+    <state x="2613" y="303" width="524" height="507" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594697176839">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594663368715" />
+    <state x="2613" y="303" width="524" height="507" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594697176839" />
+    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2" timestamp="1594688193299">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594688193299" />
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl" timestamp="1593381433874">
       <screen x="72" y="27" width="1848" height="948" />
     </state>
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.948@72.27.1848.948" timestamp="1593381433874" />
-    <state width="1876" height="463" key="GridCell.Tab.0.bottom" timestamp="1594662863533">
+    <state width="1876" height="362" key="GridCell.Tab.0.bottom" timestamp="1594688516333">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="463" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594662863533" />
-    <state width="1876" height="463" key="GridCell.Tab.0.center" timestamp="1594662863533">
+    <state width="1876" height="362" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594688516333" />
+    <state width="1876" height="362" key="GridCell.Tab.0.center" timestamp="1594688516333">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="463" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594662863533" />
-    <state width="1876" height="463" key="GridCell.Tab.0.left" timestamp="1594662863533">
+    <state width="1876" height="362" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594688516333" />
+    <state width="1876" height="362" key="GridCell.Tab.0.left" timestamp="1594688516333">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="463" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594662863533" />
-    <state width="1876" height="463" key="GridCell.Tab.0.right" timestamp="1594662863533">
+    <state width="1876" height="362" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594688516333" />
+    <state width="1876" height="362" key="GridCell.Tab.0.right" timestamp="1594688516333">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1876" height="463" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594662863533" />
+    <state width="1876" height="362" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594688516333" />
     <state width="1876" height="265" key="GridCell.Tab.1.bottom" timestamp="1594609947243">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -218,14 +248,14 @@
       <screen x="72" y="27" width="1848" height="948" />
     </state>
     <state x="485" y="136" width="1022" height="737" key="SettingsEditor/72.27.1848.948@72.27.1848.948" timestamp="1593393593581" />
-    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1594663369695">
+    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1594688194195">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594663369695" />
-    <state x="446" y="0" width="963" height="686" maximized="true" key="dock-window-1" timestamp="1594687607366">
-      <screen x="0" y="27" width="1920" height="1053" />
+    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594688194195" />
+    <state x="2497" y="27" width="953" height="693" maximized="true" key="dock-window-1" timestamp="1594692223693">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="446" y="0" width="963" height="686" maximized="true" key="dock-window-1/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594687607366" />
+    <state x="2497" y="27" width="953" height="693" maximized="true" key="dock-window-1/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594692223693" />
     <state x="624" y="245" key="run.anything.popup" timestamp="1594607816811">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>

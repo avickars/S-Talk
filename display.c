@@ -41,7 +41,7 @@ void *display(void *unused) {
 		    exit(1);
 		}
 
-		if (receiverList->size < 1) {
+		if (List_count(receiverList) < 1) {
             // Do a wait on the condition that we have no more room for a message
 			if (pthread_cond_wait(&messagesToDisplay,&receiverDisplayMutex) != 0) {
                 printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
