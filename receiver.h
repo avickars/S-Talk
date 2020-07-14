@@ -12,6 +12,8 @@ extern pthread_cond_t receiverSpotAvailable; // Making this condition available
 
 extern pthread_t receiverThread;
 
+extern int socketDescriptor;
+
 void receiverInit(void *argv);
 
 void receiverDestructor();

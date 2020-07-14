@@ -13,11 +13,8 @@ CMakeFiles/untitled.dir/input.c.o: ../list.h
 CMakeFiles/untitled.dir/list.c.o: ../list.c
 CMakeFiles/untitled.dir/list.c.o: ../list.h
 
-CMakeFiles/untitled.dir/receiver.c.o: ../display.h
-CMakeFiles/untitled.dir/receiver.c.o: ../input.h
 CMakeFiles/untitled.dir/receiver.c.o: ../list.h
 CMakeFiles/untitled.dir/receiver.c.o: ../receiver.c
-CMakeFiles/untitled.dir/receiver.c.o: ../sender.h
 
 CMakeFiles/untitled.dir/s-talk.c.o: ../display.h
 CMakeFiles/untitled.dir/s-talk.c.o: ../input.h

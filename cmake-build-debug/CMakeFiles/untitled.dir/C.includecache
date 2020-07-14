@@ -6,45 +6,25 @@
 
 #IncludeRegexTransform: 
 
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/display.h
-
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/input.h
-pthread.h
--
-list.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
-
 /home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
 stdbool.h
 -
 
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/receiver.h
-pthread.h
--
-list.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
-
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/sender.c
-pthread.h
+/home/aidan/Documents/GitRepositories/CMPT300Assignment3/receiver.c
+stddef.h
 -
 stdio.h
+-
+pthread.h
 -
 stdlib.h
 -
 string.h
 -
+list.h
+/home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
 netdb.h
 -
 sys/socket.h
 -
-sys/types.h
--
-list.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.h
-input.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/input.h
-display.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/display.h
-receiver.h
-/home/aidan/Documents/GitRepositories/CMPT300Assignment3/receiver.h
 

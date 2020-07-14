@@ -20,7 +20,11 @@ int main (int argc, char *argv[]) {
 		
 		
 	// 	} 
-	// } 
+	// }
+	if (argc < 3) {
+        printf("ERROR: %s (@%d): Not Enough Arguments \"\"\n", __func__, __LINE__);
+        exit(1);
+	}
 
 	printf("Welcome to s-talk! \n");
 	printf("Enter \"!<ENTER>\" to exit \n");
@@ -40,6 +44,8 @@ int main (int argc, char *argv[]) {
 	inputDestructor();
 	displayDestructor();
 	receiverDestructor();
+
+
 
 
 	
