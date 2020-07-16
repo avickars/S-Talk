@@ -6,8 +6,9 @@
 
 // Making these accessible
 extern pthread_cond_t messagesToSend; 
-extern pthread_mutex_t acceptingInputMutex;
+extern pthread_mutex_t inputSenderMutex;
 extern pthread_cond_t inputSpotAvailable;
+
 extern List *senderList;
 
 extern pthread_t inputThread;

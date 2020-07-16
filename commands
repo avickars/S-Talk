@@ -16,3 +16,8 @@ gdb --args cat someTestData.txt | ./s-talk 12345 aidan-MS-7B93 22110
 netcat -u aidan-MS-7B93 22110
 
 http://www.microhowto.info/howto/send_a_udp_datagram_in_c.html
+
+
+
+
+valgrind --leak-check=full ./s-talk 12345 aidan-MS-7B93 22110 --show-leak-kinds=all

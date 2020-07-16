@@ -3,98 +3,77 @@
 #include <stdlib.h> // For malloc
 #include <stdio.h> // For printf
 #include <unistd.h> //For read()
+#include <errno.h> // For error
+#include <string.h> // FOr error
 #include "list.h"
 
-#define MSG_MAX_LEN 1024
+#define MSG_MAX_LEN 512
 
 List *senderList; // Defining the Sender List
 
 pthread_t inputThread; // Defining the input thread
 
 pthread_cond_t messagesToSend=PTHREAD_COND_INITIALIZER; // Creating condition variables
-pthread_mutex_t acceptingInputMutex=PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t inputSpotAvailable=PTHREAD_COND_INITIALIZER;
+pthread_mutex_t inputSenderMutex=PTHREAD_MUTEX_INITIALIZER;
+
+bool lostMemory = false;
+
+bool first = true;
+
+char *newMessage = NULL;
 
 static void freeItem(void *pItem) {
     free(pItem);
 }
 
-void inputCleanUp(void *unused) {
-    if (pthread_cond_signal(&messagesToSend) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-        exit(1);
-    }
-    if (pthread_mutex_unlock(&acceptingInputMutex) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-        exit(1);
-    }
-}
-
 void *input(void *unused) {
     int oldState;
     int oldType;
-    if (pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldType) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-        exit(1);
-    }
     int numBytes;
 
-    pthread_cleanup_push(inputCleanUp, NULL);
     while (1) {
-        // Locking mutex
-		if (pthread_mutex_lock(&acceptingInputMutex) != 0) {
+        int oldCancelState;
+        pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldCancelState);
+        newMessage = (char *) malloc(MSG_MAX_LEN * sizeof(char));
+        lostMemory = true;
+        pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldCancelState);
+
+        read(fileno(stdin), newMessage, MSG_MAX_LEN);
+
+        // Entering critical section
+        if (pthread_mutex_lock(&inputSenderMutex) != 0) {
             printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-		    exit(1);
-		}
-		if (List_count(senderList) > 0) {
-            // Do a wait on the condition that we have no more room for a message
-			if(pthread_cond_wait(&inputSpotAvailable,&acceptingInputMutex) != 0) {
+            exit(1);
+        }
+        if (List_count(senderList) > 1) {
+            if(pthread_cond_wait(&inputSpotAvailable,&inputSenderMutex) != 0) {
                 printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-			    exit(1);
-			}
-		}
-        // Disabling the cancellation state to ensure that space that is allocated makes it onto the senderList(So it can be freed later on)
-		if (pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldState) != 0) {
-            printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-		    exit(1);
-		}
-		char *messageFromUser = (char *) malloc(MSG_MAX_LEN * sizeof(char)); // Dynamically allocating an array of char for message
-        List_append(senderList, messageFromUser); // Putting user input on the list
-        if (pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldState) != 0) {
+                exit(1);
+            }
+        }
+
+            // Critical Section
+            List_append(senderList, newMessage);
+            lostMemory = false;
+
+        // Leaving critical section
+        if (pthread_mutex_unlock(&inputSenderMutex) != 0) {
             printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
             exit(1);
         }
-        // Enabling the cancellation state now that the allocated memory is on the list
-
-		printf("\n Enter a message: ");
-		// scanf("%s", messageFromUser);
-
-//		fgets(messageFromUser, MSG_MAX_LEN, stdin); // Getting user input
-
-		numBytes = read(0, messageFromUser, MSG_MAX_LEN);
-//        do {
-//            numBytes = read(0, messageFromUser, MSG_MAX_LEN);
-//        } while (numBytes > 0);
-
-		printf("numbytes: %d", numBytes);
-
-        // Signaling incase the consumer did a wait earlier, it is now ready
-		if (pthread_cond_signal(&messagesToSend) != 0) {
-            printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-		    exit(1);
-		}
-        // Unlocking mutext
-        if (pthread_mutex_unlock(&acceptingInputMutex) != 0) {
+        if (pthread_cond_signal(&messagesToSend) != 0) {
             printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
             exit(1);
         }
-	}
-    pthread_cleanup_pop(1);
+    }
+
+
 }
-
 
 void inputInit() {
     senderList = List_create(); // Initializing the Receiver List
+
     if (pthread_create(&inputThread, NULL, input, NULL) != 0) {
         printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
         exit(1);
@@ -102,6 +81,17 @@ void inputInit() {
 }
 
 void inputDestructor() {
+    if (pthread_join(inputThread,NULL) != 0) {
+        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+        exit(1);
+    }
+
+    List_free(senderList, freeItem);
+
+    if (lostMemory) {
+        free(newMessage);
+    }
+
     if (pthread_cond_destroy(&messagesToSend) != 0) {
         printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
         exit(1);
@@ -111,16 +101,13 @@ void inputDestructor() {
         printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
         exit(1);
     }
-
-    if (pthread_mutex_destroy(&acceptingInputMutex) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-        exit(1);
+    int error = pthread_mutex_destroy(&inputSenderMutex);
+    if (error != 0) {
+        printf("ERROR: %s (@%d): failed condition ", __func__, __LINE__);
+        fprintf(stderr, "Value of errno: %d\n", error);
+        perror("Error printed by perror");
+        fprintf(stderr, "Error opening file: %s\n", strerror( error));
+//        exit(1);
     }
 
-    List_free(senderList, freeItem);
-
-    if (pthread_join(inputThread,NULL) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-        exit(1);
-    }
 }

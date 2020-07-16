@@ -13,14 +13,6 @@ struct  senderArgs{
 
 
 int main (int argc, char *argv[]) {
-	// if (argc > 1) {
-	// 	for (int i = 1; i < argc; i++)
-	// 	{
-	// 		printf("%d --- %s\t", i,argv[i]);
-		
-		
-	// 	} 
-	// }
 	if (argc < 3) {
         printf("ERROR: %s (@%d): Not Enough Arguments \"\"\n", __func__, __LINE__);
         exit(1);
@@ -36,29 +28,16 @@ int main (int argc, char *argv[]) {
 	struct senderArgs sendArgs = {REMOTENAME, REMOTEPORT};
 
 	receiverInit(HOSTPORT);
-	displayInit();
 	inputInit();
+	displayInit();
+
 	senderInit(&sendArgs);
 
 	senderDestructor();
-	inputDestructor();
-	displayDestructor();
-	receiverDestructor();
 
-
-
-
-	
-
-	
-	
-	
-
-
-
-
-
-
+    inputDestructor();
+    displayDestructor();
+    receiverDestructor();
 
 
 printf("\n Goodbye! \n");

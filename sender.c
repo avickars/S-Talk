@@ -12,11 +12,13 @@
 #include "display.h"
 #include "receiver.h"
 
-#define MSG_MAX_LEN 1024
+#define MSG_MAX_LEN 512
 
 pthread_t senderThread; // Defining the Sender thread
 
 struct addrinfo *result;
+
+char *msgFromInput; // Pointer to the message to be sent
 
 typedef struct senderArgs_s senderArgs;
 struct  senderArgs{
@@ -24,86 +26,60 @@ struct  senderArgs{
 	void *REMOTEPORT;
 };
 
-void senderCleanup(void *unused) {
-    freeaddrinfo(result); // Freeing the structure that getaddrinfo() dynamically allocates
-
-    if (pthread_cond_signal(&inputSpotAvailable) != 0) {
-        exit(1);
-    }
-
-    if (pthread_mutex_unlock(&acceptingInputMutex) != 0) {
-        exit(1);
-    }
-}
-
 void *sender(void *args) {
-    int oldState; // Needed for changing the thread cancellation state
-	int rv;
-	int len;
+    char msgToSend[MSG_MAX_LEN];
+    int messageLength;
 
-	pthread_cleanup_push(senderCleanup, NULL);
-
-    char *messageToSend; // Pointer to the message to be sent
-
-	while(1) {
-        if (pthread_mutex_lock(&acceptingInputMutex) != 0) {
-            exit(1);
+    while(1) {
+        // Entering critical section
+        if (pthread_mutex_lock(&inputSenderMutex) != 0) {
+            printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
         }
-		if (List_count(senderList) < 1) {
-			pthread_cond_wait(&messagesToSend, &acceptingInputMutex);
-		}
-		messageToSend = (char *) List_first(senderList);
-
-		len = sendto(socketDescriptor, (char *) messageToSend, MSG_MAX_LEN, 0, result->ai_addr, result->ai_addrlen);
-        if (len == -1) {
-            exit(1);
-        }
-
-        // Time to shutdown
-		if (*messageToSend == '!') {
-            // Sending a cancellation request to the input thread
-		    if(pthread_cancel(inputThread) != 0) {
-		        exit(1);
-		    }
-
-            // Sending a cancellation request to the display thread
-		    if (pthread_cancel(displayThread) != 0){
-		        exit(1);
-		    }
-
-            // Sending a cancellation request to the receiver thread
-            if (pthread_cancel(receiverThread) != 0) {
+        if (List_count(senderList) < 1) {
+            if (pthread_cond_wait(&messagesToSend, &inputSenderMutex) != 0) {
+                printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
                 exit(1);
             }
+        }
 
+        // In critical section
+        msgFromInput = (char *) List_first(senderList);
+        strcpy(msgToSend, msgFromInput);
+        List_remove(senderList);
+        free(msgFromInput);
 
-            pthread_exit(NULL); // Exiting the thread
-		}
-
-		// Not allowing cancellation here as acting on a cancellation request here could result in a memory leakage
-		if (pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldState) != 0) {
-		    exit(1);
-		}
-        List_remove(senderList); // Removing the first item on the list
-		free(messageToSend); // Freeing the dynamically allocated char array
-		if (pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldState) != 0) {
-		    exit(1);
-		}
-
-		if (pthread_cond_signal(&inputSpotAvailable) != 0) {
-		    exit(1);
-		}
-        if (pthread_mutex_unlock(&acceptingInputMutex) != 0) {
+        // Leaving critical section
+        if (pthread_mutex_unlock(&inputSenderMutex) != 0) {
+            exit(1);
+        }
+        if (pthread_cond_signal(&inputSpotAvailable) != 0) {
             exit(1);
         }
 
-	}
+        // Sending message
+        messageLength = sendto(socketDescriptor, msgToSend, MSG_MAX_LEN, 0, result->ai_addr, result->ai_addrlen);
+        if (messageLength == -1) {
+            exit(1);
+        }
 
-	pthread_cleanup_pop(1);
+        // Shutdown
+        if (*msgToSend == '!') {
+            pthread_cancel(inputThread); // Sending cancellation request to input thread
+            pthread_cancel(receiverThread); // Sending cancellation request to receiver thread
+            pthread_cancel(displayThread); // Sending cancellation request to display thread
+            pthread_exit(NULL);
+
+        }
+
+        memset(msgToSend, 0 ,MSG_MAX_LEN);
+
+
+    }
 }
 
 void senderInit(void *argv) {
     struct senderArgs *senderArgsPtr = argv;
+
     // Getting Remote Machine Info:
     // CITATION: http://beej.us/guide/bgnet/html/#getaddrinfoman
     // CITATION: https://www.youtube.com/watch?v=MOrvead27B4
@@ -121,7 +97,11 @@ void senderInit(void *argv) {
 }
 
 void senderDestructor() {
+    freeaddrinfo(result);
+
     if (pthread_join(senderThread, NULL) != 0) {
         exit(1);
     }
+
+
 }

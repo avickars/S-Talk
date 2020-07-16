@@ -1,1 +1,1 @@
-/usr/bin/cc  -pthread -g   CMakeFiles/untitled.dir/s-talk.c.o CMakeFiles/untitled.dir/sender.c.o CMakeFiles/untitled.dir/receiver.c.o CMakeFiles/untitled.dir/input.c.o CMakeFiles/untitled.dir/display.c.o  -o untitled 
+/usr/bin/cc  -pthread -g   CMakeFiles/untitled.dir/s-talk.c.o CMakeFiles/untitled.dir/sender.c.o CMakeFiles/untitled.dir/receiver.c.o CMakeFiles/untitled.dir/input.c.o CMakeFiles/untitled.dir/display.c.o CMakeFiles/untitled.dir/list.c.o  -o untitled 
