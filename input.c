@@ -2,8 +2,6 @@
 #include <pthread.h> // For pthreads
 #include <stdlib.h> // For malloc
 #include <stdio.h> // For printf
-#include <unistd.h> //For read()
-#include <errno.h> // For error
 #include <string.h> // FOr error
 #include "list.h"
 
@@ -17,21 +15,15 @@ pthread_cond_t messagesToSend=PTHREAD_COND_INITIALIZER; // Creating condition va
 pthread_cond_t inputSpotAvailable=PTHREAD_COND_INITIALIZER;
 pthread_mutex_t inputSenderMutex=PTHREAD_MUTEX_INITIALIZER;
 
-bool lostMemory = false;
+static bool lostMemory = false;
 
-bool first = true;
-
-char *newMessage = NULL;
+static char *newMessage = NULL;
 
 static void freeItem(void *pItem) {
     free(pItem);
 }
 
 void *input(void *unused) {
-    int oldState;
-    int oldType;
-    int numBytes;
-
     while (1) {
         int oldCancelState;
         pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldCancelState);
@@ -40,7 +32,6 @@ void *input(void *unused) {
         pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldCancelState);
 
         fgets(newMessage, MSG_MAX_LEN, stdin); // Getting user input
-//        read(fileno(stdin), newMessage, MSG_MAX_LEN);
 
         // Entering critical section
         if (pthread_mutex_lock(&inputSenderMutex) != 0) {

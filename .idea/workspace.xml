@@ -29,36 +29,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24f27e52-7cbd-45d8-9d61-30190610e405" name="Default Changelist" comment="added in">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Commands" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Links" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Man Command" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Sectino 2 Recvfrom" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Section 2 Bind" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Section 2 Send" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Section2 Read" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documentation/Section2 Sockets" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstructorStuff/list.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/untitled.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/untitled.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/untitled.cbp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display.c" beforeDir="false" afterPath="$PROJECT_DIR$/display.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input.c" beforeDir="false" afterPath="$PROJECT_DIR$/input.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/list.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sender.c" beforeDir="false" afterPath="$PROJECT_DIR$/sender.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/someTestData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/someTestData.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.c" beforeDir="false" />
-    </list>
+    <list default="true" id="24f27e52-7cbd-45d8-9d61-30190610e405" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -172,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594688193359</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="done">
+      <created>1595093911845</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1595093911845</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,7 +173,8 @@
     <MESSAGE value="almost finished error handling" />
     <MESSAGE value="adjusted input cleanup and destructor" />
     <MESSAGE value="almost completed error handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="almost completed error handling" />
+    <MESSAGE value="done" />
+    <option name="LAST_COMMIT_MESSAGE" value="done" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2333" y="241" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594600957045">
@@ -212,10 +191,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2613" y="303" width="524" height="507" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594697176839" />
-    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2" timestamp="1595092433880">
+    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2" timestamp="1595093911762">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1595092433880" />
+    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1595093911762" />
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl" timestamp="1593381433874">
       <screen x="72" y="27" width="1848" height="948" />
     </state>
@@ -260,10 +239,10 @@
       <screen x="72" y="27" width="1848" height="948" />
     </state>
     <state x="485" y="136" width="1022" height="737" key="SettingsEditor/72.27.1848.948@72.27.1848.948" timestamp="1593393593581" />
-    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1594688194195">
+    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1595093913024">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594688194195" />
+    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1595093913024" />
     <state x="267" y="27" width="1614" height="755" key="dock-window-1" timestamp="1595091736980">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
