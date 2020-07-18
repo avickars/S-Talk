@@ -20,8 +20,6 @@ struct addrinfo *result;
 
 static char *msgFromInput; // Pointer to the message to be sent
 
-static bool lostMemory = false;
-
 typedef struct senderArgs_s senderArgs;
 struct  senderArgs{
  	void *REMOTENAME;

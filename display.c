@@ -46,7 +46,6 @@ void *display(void *unused) {
         }
 
         // Writing contents to the screen
-//        puts(messageFromReceiver);
         write(fileno(stdout), messageFromReceiver, MSG_MAX_LEN);
 
         // Shutdown
