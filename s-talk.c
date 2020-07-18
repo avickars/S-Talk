@@ -39,8 +39,5 @@ int main (int argc, char *argv[]) {
     displayDestructor();
     receiverDestructor();
 
-
-printf("\n Goodbye! \n");
-
 return 0;
 }

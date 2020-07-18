@@ -29,7 +29,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24f27e52-7cbd-45d8-9d61-30190610e405" name="Default Changelist" comment="" />
+    <list default="true" id="24f27e52-7cbd-45d8-9d61-30190610e405" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/display.c" beforeDir="false" afterPath="$PROJECT_DIR$/display.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/input.c" beforeDir="false" afterPath="$PROJECT_DIR$/input.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/receiver.c" beforeDir="false" afterPath="$PROJECT_DIR$/receiver.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/s-talk.c" beforeDir="false" afterPath="$PROJECT_DIR$/s-talk.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sender.c" beforeDir="false" afterPath="$PROJECT_DIR$/sender.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,6 +101,9 @@
       <workItem from="1594692567879" duration="3000" />
       <workItem from="1594692578156" duration="32000" />
       <workItem from="1594697064785" duration="331000" />
+      <workItem from="1595094420035" duration="191000" />
+      <workItem from="1595105977759" duration="2249000" />
+      <workItem from="1595108311641" duration="790000" />
     </task>
     <task id="LOCAL-00001" summary="Input shutdown complete">
       <created>1594254841281</created>
@@ -150,7 +161,21 @@
       <option name="project" value="LOCAL" />
       <updated>1595093911845</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added in static">
+      <created>1595094531590</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1595094531590</updated>
+    </task>
+    <task id="LOCAL-00010" summary="added in static">
+      <created>1595094594740</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1595094594740</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -174,7 +199,8 @@
     <MESSAGE value="adjusted input cleanup and destructor" />
     <MESSAGE value="almost completed error handling" />
     <MESSAGE value="done" />
-    <option name="LAST_COMMIT_MESSAGE" value="done" />
+    <MESSAGE value="added in static" />
+    <option name="LAST_COMMIT_MESSAGE" value="added in static" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2333" y="241" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594600957045">
@@ -191,9 +217,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2613" y="303" width="524" height="507" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594697176839" />
-    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2" timestamp="1595093911762">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="471" y="125" width="898" height="868" key="CommitChangelistDialog2" timestamp="1595094594696">
+      <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="471" y="125" width="898" height="868" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1595094594696" />
     <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1595093911762" />
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl" timestamp="1593381433874">
       <screen x="72" y="27" width="1848" height="948" />
@@ -239,13 +266,15 @@
       <screen x="72" y="27" width="1848" height="948" />
     </state>
     <state x="485" y="136" width="1022" height="737" key="SettingsEditor/72.27.1848.948@72.27.1848.948" timestamp="1593393593581" />
-    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1595093913024">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1595093913024" />
-    <state x="267" y="27" width="1614" height="755" key="dock-window-1" timestamp="1595091736980">
+    <state x="555" y="309" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1595094595869">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
+    <state x="555" y="309" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1595094595869" />
+    <state x="2475" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1595093913024" />
+    <state x="267" y="27" width="1614" height="755" key="dock-window-1" timestamp="1595094610149">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="267" y="27" width="1614" height="755" key="dock-window-1/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1595094610149" />
     <state x="267" y="27" width="1614" height="755" key="dock-window-1/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1595091736980" />
     <state x="184" y="0" width="1717" height="941" maximized="true" key="dock-window-2" timestamp="1594881296657">
       <screen x="0" y="27" width="1920" height="1053" />
@@ -261,87 +290,62 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>65</line>
+          <line>69</line>
           <option name="timeStamp" value="240" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>34</line>
+          <line>43</line>
           <option name="timeStamp" value="331" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>37</line>
+          <line>46</line>
           <option name="timeStamp" value="332" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>68</line>
-          <option name="timeStamp" value="340" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>61</line>
+          <line>65</line>
           <option name="timeStamp" value="347" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>69</line>
-          <option name="timeStamp" value="348" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>70</line>
-          <option name="timeStamp" value="349" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>71</line>
-          <option name="timeStamp" value="350" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/sender.c</url>
-          <line>72</line>
-          <option name="timeStamp" value="351" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>83</line>
+          <line>88</line>
           <option name="timeStamp" value="352" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>84</line>
+          <line>89</line>
           <option name="timeStamp" value="353" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>89</line>
+          <line>94</line>
           <option name="timeStamp" value="354" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>91</line>
+          <line>96</line>
           <option name="timeStamp" value="355" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>95</line>
+          <line>100</line>
           <option name="timeStamp" value="356" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>100</line>
+          <line>105</line>
           <option name="timeStamp" value="357" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>105</line>
+          <line>110</line>
           <option name="timeStamp" value="358" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/input.c</url>
-          <line>106</line>
+          <line>111</line>
           <option name="timeStamp" value="360" />
         </line-breakpoint>
       </breakpoints>

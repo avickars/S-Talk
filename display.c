@@ -16,7 +16,16 @@ pthread_t displayThread; // Defining the Display Thread
 
 static bool lostMemoryDisplay = false;
 
+static bool waiting = false;
+
+void displayCleanup(void *unused) {
+    if (waiting) {
+        pthread_mutex_unlock(&receiverDisplayMutex);
+    }
+}
+
 void *display(void *unused) {
+    pthread_cleanup_push(displayCleanup, NULL);
 
     while (1) {
         // Entering critical section
@@ -24,11 +33,14 @@ void *display(void *unused) {
             exit(1);
         }
         if (List_count(receiverList) < 1) {
+            waiting = true;
             if (pthread_cond_wait(&messagesToDisplay, &receiverDisplayMutex) != 0) {
                 printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
                 exit(1);
             }
+            waiting = false;
         }
+
 
         // Critical section
         messageFromReceiver = (char *) List_first(receiverList);
@@ -61,6 +73,8 @@ void *display(void *unused) {
 
 
     }
+
+    pthread_cleanup_pop(1);
 }
 
 void displayInit() {

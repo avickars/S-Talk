@@ -20,15 +20,26 @@ struct addrinfo *result;
 
 static char *msgFromInput; // Pointer to the message to be sent
 
+static bool waiting = false;
+
 typedef struct senderArgs_s senderArgs;
 struct  senderArgs{
  	void *REMOTENAME;
 	void *REMOTEPORT;
 };
 
+void senderCleanup(void *unused) {
+    if (waiting){
+        pthread_mutex_unlock(&inputSenderMutex);
+    }
+}
+
 void *sender(void *args) {
     char msgToSend[MSG_MAX_LEN];
     int messageLength;
+
+
+    pthread_cleanup_push(senderCleanup, NULL);
 
     while(1) {
 
@@ -37,11 +48,14 @@ void *sender(void *args) {
             printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
         }
         if (List_count(senderList) < 1) {
+            waiting = true;
             if (pthread_cond_wait(&messagesToSend, &inputSenderMutex) != 0) {
                 printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
                 exit(1);
             }
+            waiting = false;
         }
+
 
         // In critical section
         msgFromInput = (char *) List_first(senderList);
@@ -69,12 +83,12 @@ void *sender(void *args) {
             pthread_cancel(receiverThread); // Sending cancellation request to receiver thread
             pthread_cancel(displayThread); // Sending cancellation request to display thread
             pthread_exit(NULL);
-
         }
         memset(msgToSend, 0 ,MSG_MAX_LEN);
 
 
     }
+    pthread_cleanup_pop(1);
 }
 
 void senderInit(void *argv) {

@@ -19,11 +19,21 @@ static bool lostMemory = false;
 
 static char *newMessage = NULL;
 
+static bool waiting = false;
+
 static void freeItem(void *pItem) {
     free(pItem);
 }
 
+void inputCleanup(void *unused) {
+    if (waiting) {
+        pthread_mutex_unlock(&inputSenderMutex);
+    }
+
+}
+
 void *input(void *unused) {
+    pthread_cleanup_push(inputCleanup, NULL);
     while (1) {
         int oldCancelState;
         pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldCancelState);
@@ -39,11 +49,14 @@ void *input(void *unused) {
             exit(1);
         }
         if (List_count(senderList) > 1) {
+            waiting = true;
             if(pthread_cond_wait(&inputSpotAvailable,&inputSenderMutex) != 0) {
                 printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
                 exit(1);
             }
+            waiting = false;
         }
+
 
             // Critical Section
             List_append(senderList, newMessage);
@@ -59,6 +72,7 @@ void *input(void *unused) {
             exit(1);
         }
     }
+    pthread_cleanup_pop(1);
 
 
 }

@@ -25,13 +25,24 @@ bool lostMemoryReceiver = false;
 
 char *messageReceived = NULL;
 
+static bool waiting = false;
+
 static void freeItem(void *pItem) {
     free(pItem);
+}
+
+void receiverCleanup(void *unused) {
+    if (waiting) {
+        pthread_mutex_unlock(&receiverDisplayMutex);
+    }
+
 }
 
 void *receiver(void *argv) {
     struct sockaddr_in sinRemote;
 	unsigned int sinLen = sizeof(sinRemote);
+
+	pthread_cleanup_push(receiverCleanup, NULL);
 
     while (1) {
         int oldCancelState;
@@ -50,11 +61,14 @@ void *receiver(void *argv) {
             exit(1);
         }
         if (List_count(receiverList) > 0) {
+            waiting = true;
             if (pthread_cond_wait(&receiverSpotAvailable,&receiverDisplayMutex) != 0) {
                 printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
                 exit(1);
             }
+            waiting = false;
         }
+
 
         // Critical Section
         List_append(receiverList, messageReceived);
@@ -69,10 +83,8 @@ void *receiver(void *argv) {
             printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
             exit(1);
         }
-
-
-
 	}
+pthread_cleanup_pop(1);
 }
 
 void receiverInit(void *argv) {
