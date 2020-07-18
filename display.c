@@ -14,10 +14,9 @@ char *messageFromReceiver = NULL;
 
 pthread_t displayThread; // Defining the Display Thread
 
-
+bool lostMemoryDisplay = false;
 
 void *display(void *unused) {
-    char messageToDisplay[MSG_MAX_LEN];
 
     while (1) {
         // Entering critical section
@@ -33,13 +32,8 @@ void *display(void *unused) {
 
         // Critical section
         messageFromReceiver = (char *) List_first(receiverList);
-        if (messageFromReceiver == NULL) {
-            printf("foind it");
-        }
-//        printf("\n >> %s", (char *) messageFromReceiver);
-        strcpy(messageToDisplay, messageFromReceiver);
         List_remove(receiverList);
-        free(messageFromReceiver);
+        lostMemoryDisplay = true;
 
         // Leaving critical section
         if (pthread_mutex_unlock(&receiverDisplayMutex) != 0) {
@@ -52,20 +46,18 @@ void *display(void *unused) {
         }
 
         // Writing contents to the screen
-        write(fileno(stdout), messageToDisplay, MSG_MAX_LEN);
+        write(fileno(stdout), messageFromReceiver, MSG_MAX_LEN);
 
         // Shutdown
-        if (*messageToDisplay == '!') {
+        if (*messageFromReceiver == '!') {
             pthread_cancel(inputThread); // Sending cancellation request to input thread
             pthread_cancel(receiverThread); // Sending cancellation request to receiver thread
             pthread_cancel(senderThread); // Sending cancellation request to sender thread
             pthread_exit(NULL);
         }
 
-        // Ensuring there will be nothing left over
-        memset(messageToDisplay, 0, MSG_MAX_LEN);
-
-
+        free(messageFromReceiver);
+        lostMemoryDisplay = false;
 
 
     }
@@ -79,6 +71,9 @@ void displayInit() {
 }
 
 void displayDestructor() {
+    if (lostMemoryDisplay) {
+        free(messageFromReceiver);
+    }
     if (pthread_join(displayThread,NULL) != 0) {
         printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
         exit(1);
