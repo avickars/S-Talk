@@ -39,8 +39,8 @@ void *input(void *unused) {
         lostMemory = true;
         pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldCancelState);
 
-//        read(fileno(stdin), newMessage, MSG_MAX_LEN);
         fgets(newMessage, MSG_MAX_LEN, stdin); // Getting user input
+//        read(fileno(stdin), newMessage, MSG_MAX_LEN);
 
         // Entering critical section
         if (pthread_mutex_lock(&inputSenderMutex) != 0) {

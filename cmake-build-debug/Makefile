@@ -177,33 +177,6 @@ input.c.s:
 	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/input.c.s
 .PHONY : input.c.s
 
-list.o: list.c.o
-
-.PHONY : list.o
-
-# target to build an object file
-list.c.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/list.c.o
-.PHONY : list.c.o
-
-list.i: list.c.i
-
-.PHONY : list.i
-
-# target to preprocess a source file
-list.c.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/list.c.i
-.PHONY : list.c.i
-
-list.s: list.c.s
-
-.PHONY : list.s
-
-# target to generate assembly for a file
-list.c.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/list.c.s
-.PHONY : list.c.s
-
 receiver.o: receiver.c.o
 
 .PHONY : receiver.o
@@ -300,9 +273,6 @@ help:
 	@echo "... input.o"
 	@echo "... input.i"
 	@echo "... input.s"
-	@echo "... list.o"
-	@echo "... list.i"
-	@echo "... list.s"
 	@echo "... receiver.o"
 	@echo "... receiver.i"
 	@echo "... receiver.s"

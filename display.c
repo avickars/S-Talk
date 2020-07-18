@@ -10,11 +10,11 @@
 
 #define MSG_MAX_LEN 512
 
-char *messageFromReceiver = NULL;
+static char *messageFromReceiver = NULL;
 
 pthread_t displayThread; // Defining the Display Thread
 
-bool lostMemoryDisplay = false;
+static bool lostMemoryDisplay = false;
 
 void *display(void *unused) {
 
@@ -46,6 +46,7 @@ void *display(void *unused) {
         }
 
         // Writing contents to the screen
+//        puts(messageFromReceiver);
         write(fileno(stdout), messageFromReceiver, MSG_MAX_LEN);
 
         // Shutdown

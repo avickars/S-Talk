@@ -18,7 +18,9 @@ pthread_t senderThread; // Defining the Sender thread
 
 struct addrinfo *result;
 
-char *msgFromInput; // Pointer to the message to be sent
+static char *msgFromInput; // Pointer to the message to be sent
+
+static bool lostMemory = false;
 
 typedef struct senderArgs_s senderArgs;
 struct  senderArgs{
@@ -31,6 +33,7 @@ void *sender(void *args) {
     int messageLength;
 
     while(1) {
+
         // Entering critical section
         if (pthread_mutex_lock(&inputSenderMutex) != 0) {
             printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
@@ -63,14 +66,13 @@ void *sender(void *args) {
         }
 
         // Shutdown
-        if (*msgToSend == '!') {
+        if (*msgToSend== '!') {
             pthread_cancel(inputThread); // Sending cancellation request to input thread
             pthread_cancel(receiverThread); // Sending cancellation request to receiver thread
             pthread_cancel(displayThread); // Sending cancellation request to display thread
             pthread_exit(NULL);
 
         }
-
         memset(msgToSend, 0 ,MSG_MAX_LEN);
 
 

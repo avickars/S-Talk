@@ -6,7 +6,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_C
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/display.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/cmake-build-debug/CMakeFiles/untitled.dir/display.c.o"
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/input.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/cmake-build-debug/CMakeFiles/untitled.dir/input.c.o"
-  "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/list.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/cmake-build-debug/CMakeFiles/untitled.dir/list.c.o"
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/receiver.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/cmake-build-debug/CMakeFiles/untitled.dir/receiver.c.o"
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/s-talk.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/cmake-build-debug/CMakeFiles/untitled.dir/s-talk.c.o"
   "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/sender.c" "/home/aidan/Documents/GitRepositories/CMPT300Assignment3/cmake-build-debug/CMakeFiles/untitled.dir/sender.c.o"
