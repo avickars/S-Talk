@@ -56,8 +56,6 @@ void *input(void *unused) {
             }
             waiting = false;
         }
-
-
             // Critical Section
             List_append(senderList, newMessage);
             lostMemory = false;
