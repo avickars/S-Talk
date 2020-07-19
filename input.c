@@ -33,17 +33,14 @@ void inputCleanup(void *unused) {
 }
 
 void *input(void *unused) {
-    char *result;
     pthread_cleanup_push(inputCleanup, NULL);
-    int listResult;
-
     while (1) {
         newMessage = (char *) malloc(MSG_MAX_LEN * sizeof(char));
         lostMemory = true;
 
 
         // Testing if the end of a file is reached.  If yes, strcpy() "!" to newMessage to signal a shutdown
-        if((result = fgets(newMessage, MSG_MAX_LEN, stdin)) == NULL) {     // Getting user input
+        if(fgets(newMessage, MSG_MAX_LEN, stdin) == NULL) {     // Getting user input
             strcpy(newMessage, "!");
         }
 
@@ -62,7 +59,7 @@ void *input(void *unused) {
             waiting = false;
         }
             // Critical Section
-            if ((listResult = List_append(senderList, newMessage)) == -1) {
+            if (List_append(senderList, newMessage) == -1) {
                 printf("ERROR: %s (@%d): List Full, Message Skipped \"\"\n", __func__, __LINE__);
             }
             lostMemory = false;

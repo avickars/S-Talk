@@ -31,10 +31,6 @@
   <component name="ChangeListManager">
     <list default="true" id="24f27e52-7cbd-45d8-9d61-30190610e405" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/input.c" beforeDir="false" afterPath="$PROJECT_DIR$/input.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shutdown.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shutdown.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/someOutputData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/someOutputData.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/someTestData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/someTestData.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +99,7 @@
       <workItem from="1595105977759" duration="2249000" />
       <workItem from="1595108311641" duration="808000" />
       <workItem from="1595109435901" duration="86000" />
-      <workItem from="1595177097610" duration="1139000" />
+      <workItem from="1595177097610" duration="1273000" />
     </task>
     <task id="LOCAL-00001" summary="Input shutdown complete">
       <created>1594254841281</created>
@@ -210,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595177856122</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="added in list full handler">
+      <created>1595178330778</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1595178330778</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -238,7 +241,8 @@
     <MESSAGE value="fixed mutex destroyer" />
     <MESSAGE value="just doing a commit" />
     <MESSAGE value="added in end of file handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="added in end of file handler" />
+    <MESSAGE value="added in list full handler" />
+    <option name="LAST_COMMIT_MESSAGE" value="added in list full handler" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2333" y="241" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594600957045">
@@ -255,11 +259,11 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2613" y="303" width="524" height="507" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1594697176839" />
-    <state x="2391" y="101" width="898" height="868" key="CommitChangelistDialog2" timestamp="1595177856084">
+    <state x="2391" y="101" width="898" height="868" key="CommitChangelistDialog2" timestamp="1595178330519">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="471" y="125" width="898" height="868" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1595094594696" />
-    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1595177856084" />
+    <state x="2391" y="101" width="967" height="911" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@1920.0.1920.1080" timestamp="1595178330519" />
     <state x="779" y="259" width="424" height="491" key="FileChooserDialogImpl" timestamp="1593381433874">
       <screen x="72" y="27" width="1848" height="948" />
     </state>

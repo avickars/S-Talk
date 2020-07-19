@@ -45,11 +45,8 @@ void *receiver(void *argv) {
 	pthread_cleanup_push(receiverCleanup, NULL);
 
     while (1) {
-        int oldCancelState;
-        pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldCancelState);
         messageReceived = (char *) malloc(MSG_MAX_LEN * sizeof(char));
         lostMemoryReceiver = true;
-        pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldCancelState);
 
 		int bytesRx = recvfrom(socketDescriptor, messageReceived, MSG_MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
 		int terminateIdx = (bytesRx < MSG_MAX_LEN) ? bytesRx: MSG_MAX_LEN - 1;
@@ -71,7 +68,9 @@ void *receiver(void *argv) {
 
 
         // Critical Section
-        List_append(receiverList, messageReceived);
+        if (List_append(receiverList, messageReceived) == -1) {
+            printf("ERROR: %s (@%d): List Full, Message Skipped \"\"\n", __func__, __LINE__);
+        }
         lostMemoryReceiver = false;
 
         // Leaving critical section
