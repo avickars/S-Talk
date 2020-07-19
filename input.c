@@ -33,15 +33,19 @@ void inputCleanup(void *unused) {
 }
 
 void *input(void *unused) {
+    char *result;
     pthread_cleanup_push(inputCleanup, NULL);
+
     while (1) {
-        int oldCancelState;
-        pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldCancelState);
         newMessage = (char *) malloc(MSG_MAX_LEN * sizeof(char));
         lostMemory = true;
-        pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &oldCancelState);
 
-        fgets(newMessage, MSG_MAX_LEN, stdin); // Getting user input
+
+        // Testing if the end of a file is reached.  If yes, strcpy() "!" to newMessage to signal a shutdown
+        if((result = fgets(newMessage, MSG_MAX_LEN, stdin)) == NULL) {     // Getting user input
+            strcpy(newMessage, "!");
+        }
+
 
         // Entering critical section
         if (pthread_mutex_lock(&inputSenderMutex) != 0) {
