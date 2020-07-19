@@ -70,6 +70,7 @@ void *receiver(void *argv) {
         // Critical Section
         if (List_append(receiverList, messageReceived) == -1) {
             printf("ERROR: %s (@%d): List Full, Message Skipped \"\"\n", __func__, __LINE__);
+            free(messageReceived);
         }
         lostMemoryReceiver = false;
 

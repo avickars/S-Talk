@@ -60,7 +60,8 @@ void *input(void *unused) {
         }
             // Critical Section
             if (List_append(senderList, newMessage) == -1) {
-                printf("ERROR: %s (@%d): List Full, Message Skipped \"\"\n", __func__, __LINE__);
+                printf("ERROR: %s (@%d): List Full, Dropped \"\"\n", __func__, __LINE__);
+                free(newMessage);
             }
             lostMemory = false;
 
