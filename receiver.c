@@ -21,9 +21,9 @@ pthread_cond_t receiverSpotAvailable=PTHREAD_COND_INITIALIZER; // Creating condi
 
 int socketDescriptor;
 
-bool lostMemoryReceiver = false;
+static bool lostMemoryReceiver = false;
 
-char *messageReceived = NULL;
+static char *messageReceived = NULL;
 
 static bool waiting = false;
 
