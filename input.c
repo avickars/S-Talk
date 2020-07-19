@@ -35,6 +35,7 @@ void inputCleanup(void *unused) {
 void *input(void *unused) {
     char *result;
     pthread_cleanup_push(inputCleanup, NULL);
+    int listResult;
 
     while (1) {
         newMessage = (char *) malloc(MSG_MAX_LEN * sizeof(char));
@@ -61,7 +62,9 @@ void *input(void *unused) {
             waiting = false;
         }
             // Critical Section
-            List_append(senderList, newMessage);
+            if ((listResult = List_append(senderList, newMessage)) == -1) {
+                printf("ERROR: %s (@%d): List Full, Message Skipped \"\"\n", __func__, __LINE__);
+            }
             lostMemory = false;
 
         // Leaving critical section
@@ -112,10 +115,7 @@ void inputDestructor() {
     int error = pthread_mutex_destroy(&inputSenderMutex);
     if (error != 0) {
         printf("ERROR: %s (@%d): failed condition ", __func__, __LINE__);
-        fprintf(stderr, "Value of errno: %d\n", error);
-        perror("Error printed by perror");
-        fprintf(stderr, "Error opening file: %s\n", strerror( error));
-//        exit(1);
+        exit(1);
     }
 
 }
