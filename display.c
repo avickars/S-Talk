@@ -20,7 +20,10 @@ static bool waiting = false;
 
 void displayCleanup(void *unused) {
     if (waiting) {
-        pthread_mutex_unlock(&receiverDisplayMutex);
+        if (pthread_mutex_unlock(&receiverDisplayMutex) != 0) {
+            perror("Error");
+            exit(1);
+        }
     }
 }
 
@@ -30,12 +33,13 @@ void *display(void *unused) {
     while (1) {
         // Entering critical section
         if (pthread_mutex_lock(&receiverDisplayMutex) != 0) {
+            perror("Error");
             exit(1);
         }
         if (List_count(receiverList) < 1) {
             waiting = true;
             if (pthread_cond_wait(&messagesToDisplay, &receiverDisplayMutex) != 0) {
-                printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+                perror("Error");
                 exit(1);
             }
             waiting = false;
@@ -49,11 +53,11 @@ void *display(void *unused) {
 
         // Leaving critical section
         if (pthread_mutex_unlock(&receiverDisplayMutex) != 0) {
-            printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+            perror("Error");
             exit(1);
         }
         if (pthread_cond_signal(&receiverSpotAvailable) != 0) {
-            printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+            perror("Error");
             exit(1);
         }
 
@@ -62,9 +66,24 @@ void *display(void *unused) {
 
         // Shutdown
         if (*messageFromReceiver == '!') {
-            pthread_cancel(inputThread); // Sending cancellation request to input thread
-            pthread_cancel(receiverThread); // Sending cancellation request to receiver thread
-            pthread_cancel(senderThread); // Sending cancellation request to sender thread
+            // Sending cancellation request to input thread
+            if (pthread_cancel(inputThread) != 0) {
+                perror("Error");
+                exit(1);
+            }
+
+            // Sending cancellation request to receiver thread
+            if (pthread_cancel(receiverThread) != 0) {
+                perror("Error");
+                exit(1);
+            }
+
+            // Sending cancellation request to sender thread
+            if (pthread_cancel(senderThread) != 0) {
+                perror("Error");
+                exit(1);
+            }
+
             pthread_exit(NULL);
         }
 
@@ -79,7 +98,7 @@ void *display(void *unused) {
 
 void displayInit() {
     if (pthread_create(&displayThread, NULL, display, NULL) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+        perror("Error");
         exit(1);
     }
 }
@@ -89,7 +108,7 @@ void displayDestructor() {
         free(messageFromReceiver);
     }
     if (pthread_join(displayThread,NULL) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+        perror("Error");
         exit(1);
     }
 }

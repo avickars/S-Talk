@@ -4,6 +4,7 @@
 #include <stdlib.h> // For strtoul and malloc
 #include <string.h> // For memset
 #include <unistd.h> // For close()
+#include <errno.h> // For errno
 #include "list.h"
 
 #include <netdb.h> // For socket
@@ -33,7 +34,10 @@ static void freeItem(void *pItem) {
 
 void receiverCleanup(void *unused) {
     if (waiting) {
-        pthread_mutex_unlock(&receiverDisplayMutex);
+        if (pthread_mutex_unlock(&receiverDisplayMutex) != 0){
+            perror("Error");
+            exit(1);
+        };
     }
 
 }
@@ -49,18 +53,22 @@ void *receiver(void *argv) {
         lostMemoryReceiver = true;
 
 		int bytesRx = recvfrom(socketDescriptor, messageReceived, MSG_MAX_LEN, 0, (struct sockaddr*) &sinRemote, &sinLen);
+		if (bytesRx == -1) {
+            perror("Error");
+            exit(1);
+		}
 		int terminateIdx = (bytesRx < MSG_MAX_LEN) ? bytesRx: MSG_MAX_LEN - 1;
         messageReceived[terminateIdx] = 0;
 
         // Entering critical section
         if (pthread_mutex_lock(&receiverDisplayMutex) != 0) {
-            printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+            perror("Error");
             exit(1);
         }
         if (List_count(receiverList) > 0) {
             waiting = true;
             if (pthread_cond_wait(&receiverSpotAvailable,&receiverDisplayMutex) != 0) {
-                printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+                perror("Error");
                 exit(1);
             }
             waiting = false;
@@ -68,19 +76,19 @@ void *receiver(void *argv) {
 
 
         // Critical Section
-        if (List_append(receiverList, messageReceived) == -1) {
-            printf("ERROR: %s (@%d): List Full, Message Skipped \"\"\n", __func__, __LINE__);
-            free(messageReceived);
+        if (List_append(receiverList, messageReceived) != 0) {
+            perror("Error");
+            exit(1);
         }
         lostMemoryReceiver = false;
 
         // Leaving critical section
         if (pthread_mutex_unlock(&receiverDisplayMutex) != 0) {
-            printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+            perror("Error");
             exit(1);
         }
         if (pthread_cond_signal(&messagesToDisplay) != 0) {
-            printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+            perror("Error");
             exit(1);
         }
 	}
@@ -98,11 +106,11 @@ void receiverInit(void *argv) {
     sin.sin_port = htons((unsigned short)strtoul(argv, NULL, 0)); // Host to network short
     socketDescriptor = socket(PF_INET, SOCK_DGRAM, 0); // Creating the socket for UDP
     if (socketDescriptor == -1) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+        perror("Error");
         exit(1);
     }
     if (bind(socketDescriptor, (struct sockaddr*) &sin, sizeof(sin)) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+        perror("Error");
         exit(1);
     }
 
@@ -110,37 +118,40 @@ void receiverInit(void *argv) {
 
     // Creating the receiver thread
     if (pthread_create(&receiverThread, NULL, receiver, argv) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+        perror("Error");
         exit(1);
     }
 }
 
 void receiverDestructor() {
     if (pthread_join(receiverThread,NULL) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+        perror("Error");
         exit(1);
     }
 
     List_free(receiverList, freeItem);
 
-    close(socketDescriptor);
+    if (close(socketDescriptor) != 0){
+        perror("Error");
+        exit(1);
+    }
 
     if (lostMemoryReceiver) {
         free(messageReceived);
     }
 
     if (pthread_cond_destroy(&messagesToDisplay) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+        perror("Error");
         exit(1);
     }
 
     if (pthread_cond_destroy(&receiverSpotAvailable) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
+        perror("Error");
         exit(1);
     }
 
     if (pthread_mutex_destroy(&receiverDisplayMutex) != 0) {
-        printf("ERROR: %s (@%d): failed condition \"\"\n", __func__, __LINE__);
-//        exit(1);
+        perror("Error");
+        exit(1);
     }
 }
