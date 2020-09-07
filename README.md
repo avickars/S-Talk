@@ -16,7 +16,7 @@ make all
 ...
 Type messages here
 ...
-! (Typing "!" shutdowns the program on both terminals)
+! # (Typing "!" shutdowns the program on both terminals)
 ```
 
 ```
@@ -27,6 +27,6 @@ make all
 ```
 make all
 cat someTestData.txt | ./s-talk 12345 aidan-MS-7B93 22110 # Sends all text in "someTestData.txt".  Note: any file sent must contain "!" in a newline at the end of the file.
-```S
+```
 
 
