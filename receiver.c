@@ -76,9 +76,10 @@ void *receiver(void *argv) {
 
 
         // Critical Section
+        // Testing if the list is full, if so the message is dropped
         if (List_append(receiverList, messageReceived) != 0) {
-            perror("Error");
-            exit(1);
+            write(fileno(stdout), "List Full, Message Dropped", MSG_MAX_LEN);
+            free(messageReceived);
         }
         lostMemoryReceiver = false;
 

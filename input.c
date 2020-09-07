@@ -3,6 +3,7 @@
 #include <stdlib.h> // For malloc
 #include <stdio.h> // For printf
 #include <string.h> // For error
+#include <unistd.h>
 #include "list.h"
 
 #define MSG_MAX_LEN 512
@@ -62,7 +63,7 @@ static void *input(void *unused) {
         }
             // Critical Section
             if (List_append(senderList, newMessage) == -1) {
-                perror("Error");
+                write(fileno(stdout), "List Full, Message Not Sent", MSG_MAX_LEN);
                 free(newMessage);
             }
             lostMemory = false;
