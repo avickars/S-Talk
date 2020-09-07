@@ -1,8 +1,32 @@
-# CMPT 300, Assignment3
+# S-Talk
+
+This program consists of a chat application between to consoles on the same network that is written in C that I wrote for a class.
 
 
-## Notes
-* The program is splot into modules.  The input module accepts input from the user, the sender module sends input from the user, the receiver module receives input and the display module displays received input to the screen.
-* Running Valgrind will leave 4 memory leaks that appear to be a result of pthread_cancell().  Per Dr. Fraser's postings this is acceptable.
-* You will notice that each time a thread does a wait, a boolean variable "waiting" is set to true (and set to false when the thread finishes waiting).  This is done to ensure that any thread that is cancelled while on a wait gives of the mutex (see the cleanup method for each thread).
-* In sender.c you will notice that each message that is received as input from the user is copied to a char array before being sent.  This is because sending the message directly from the item on the list causes the client to receive previous messages if "enter" is pressed numerous times by the user.  However, copying the input to a char array stops this.
+## Program Structure
+
+The program is splot into modules.  The input module accepts input from the user, the sender module sends input from the user, the receiver module receives input and the display module displays received input to the screen.
+
+## Sample Commands / Getting Started
+
+```
+make all
+./s-talk 12345 <Your-Compute-Name-Here> 22110 # Execute this in first console (This means the program is listening on port 12345 and sending to the named computer on port 22110)
+./s-talk 22110 <Your-Compute-Name-Here> 12345 # Execute this in second console (This means the program is listening on port 22110 and sending to the named computer on port 12345)
+...
+Type messages here
+...
+! (Typing "!" shutdowns the program on both terminals)
+```
+
+```
+make all
+./s-talk 22110 <Computer-Name> 12345 >> someOutputData.txt  # Writes output to "someOutputData.txt"
+```
+
+```
+make all
+cat someTestData.txt | ./s-talk 12345 aidan-MS-7B93 22110 # Sends all text in "someTestData.txt".  Note: any file sent must contain "!" in a newline at the end of the file.
+```S
+
+
